@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Knights - FTC Team Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0015 0%, #1a0a2e 50%, #2d1b4e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 0, 21, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(139, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #8b0000, #b91919, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #8b0000, #7b2cbf);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 8rem 5% 4rem;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.25) 0%, rgba(123, 44, 191, 0.15) 50%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #8b0000, #b91919, #7b2cbf, #9d4edd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            color: #b794f6;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #8b0000, #b91919, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            background: rgba(123, 44, 191, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+
+        .content-section h3 {
+            font-size: 2rem;
+            color: #b91919;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 1200px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(123, 44, 191, 0.12);
+            border-radius: 15px;
+            border: 1px solid rgba(139, 0, 0, 0.5);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #b91919;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #cccccc;
+            font-size: 1.1rem;
+        }
+
+        .team-member {
+            background: rgba(123, 44, 191, 0.08);
+            border: 1px solid rgba(139, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            border-color: #b91919;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.4);
+        }
+
+        .team-member h4 {
+            font-size: 1.8rem;
+            color: #b91919;
+            margin-bottom: 1rem;
+        }
+
+        .team-member p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .sponsor-card {
+            background: rgba(123, 44, 191, 0.08);
+            border: 1px solid rgba(139, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .sponsor-card:hover {
+            border-color: #b91919;
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.4);
+        }
+
+        .sponsor-card h3 {
+            font-size: 2.5rem;
+            color: #b91919;
+            margin-bottom: 1.5rem;
+        }
+
+        .sponsor-card h4 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .sponsor-card ul {
+            color: #cccccc;
+            line-height: 2;
+            font-size: 1.1rem;
+            margin-left: 2rem;
+        }
+
+        .robot-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            background: rgba(123, 44, 191, 0.08);
+            border-radius: 15px;
+            border: 1px solid rgba(139, 0, 0, 0.4);
+        }
+
+        .spec-label {
+            color: #b91919;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .spec-value {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #8b0000, #7b2cbf);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.6rem;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            background: #b91919;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.7);
+        }
+
+        .timeline-date {
+            color: #b91919;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content {
+            background: rgba(123, 44, 191, 0.08);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 3px solid #b91919;
+        }
+
+        .timeline-content h4 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .timeline-content p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: rgba(10, 0, 21, 0.95);
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 2px solid rgba(139, 0, 0, 0.5);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: #cccccc;
+            margin: 0.5rem 0;
+        }
+
+        .contact-info {
+            color: #b91919;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: rgba(123, 44, 191, 0.15);
+            border: 2px dashed rgba(139, 0, 0, 0.5);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .image-placeholder.has-image img {
+            display: block;
+        }
+
+        .image-placeholder-text {
+            color: #888;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .image-placeholder.has-image .image-placeholder-text {
+            display: none;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .image-grid-item {
+            width: 100%;
+            height: 300px;
+            background: rgba(123, 44, 191, 0.15);
+            border: 2px dashed rgba(139, 0, 0, 0.5);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .image-grid-item.has-image img {
+            display: block;
+        }
+
+        .image-grid-item .image-placeholder-text {
+            font-size: 0.9rem;
+        }
+
+        .image-grid-item.has-image .image-placeholder-text {
+            display: none;
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #b794f6;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo" onclick="showPage('home')">NANO KNIGHTS</div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')">Home</a></li>
+            <li><a onclick="showPage('about-ftc')">About FTC</a></li>
+            <li><a onclick="showPage('about-us')">About Us</a></li>
+            <li><a onclick="showPage('mission')">Our Mission</a></li>
+            <li><a onclick="showPage('robot')">Robot</a></li>
+            <li><a onclick="showPage('achievements')">Achievements</a></li>
+            <li><a onclick="showPage('sponsors')">Sponsors</a></li>
+        </ul>
+    </nav>
+
+    <div id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>NANO KNIGHTS</h1>
+                <h2>FTC Team 26147</h2>
+                <h2>DECODE Season 2025-2026</h2>
+                <p>Building Robots, Changing Futures. A second-year FTC team dedicated to engineering excellence, innovation, and community impact through competitive robotics.</p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Years Active</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Team Members</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">8th</div>
+                <div class="stat-label">Place League Finish</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Seasons Competed</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3>Welcome to Nano Knights</h3>
+            <p>Our FTC team is a second-year team with impressive results in our last competition, Into The Deep. With 8th place in our league, we have achieved results beyond our expectations. As we continue into the DECODE season, we are committed to pushing the boundaries of what we can achieve as a small but dedicated team.</p>
+            <p>Each member of our team brings unique skills and passion to our robotics program. We believe that even the smallest ideas can lead to the biggest breakthroughs, and we demonstrate this through our innovative approach to design, programming, and competition strategy.</p>
+        </div>
+
+        <div class="image-placeholder" id="home-robot-img">
+            <img src="" alt="Nano Knights Robot">
+            <div class="image-placeholder-text">
+                Robot Image<br>
+                <small>Replace with: document.getElementById('home-robot-img').querySelector('img').src = 'YOUR_IMAGE_URL'</small>
+            </div>
+        </div>
+    </div>
+
+    <div id="about-ftc" class="page">
+        <h2 class="section-title">About FTC</h2>
+        
+        <div class="content-section">
+            <h3>FIRST Tech Challenge</h3>
+            <p>FTC Robotics is a program that offers a unique learning experience for students who are interested in science, technology, engineering and math (STEM). FTC stands for FIRST Tech Challenge, and the program is designed to provide students with hands-on experience in designing, building and programming robots to compete in various challenges.</p>
+            
+            <p>FTC Robotics is more than just a robotics program. It is an opportunity for students to develop important skills that will benefit them in all areas of their lives. Through the program, students learn problem-solving skills, teamwork abilities, leadership opportunities, and much more.</p>
+            
+            <p>The FIRST Tech Challenge combines the excitement of sport with the rigors of science and technology. Teams design, build, program, and operate robots to compete in a head-to-head challenge in an alliance format. Participants call it "the hardest fun you'll ever have!"</p>
+        </div>
+
+        <div class="content-section">
+            <h3>What Makes FTC Unique</h3>
+            <p>FIRST Tech Challenge teams are challenged to design, build, program, and operate robots to play a floor game in an alliance format. Teams also must raise funds, design and market their team brand, and do community outreach to earn specific judged awards. Each season concludes with regional championship events and an exciting World Championship.</p>
+            
+            <p>The program is built on FIRST Core Values including discovery, innovation, impact, inclusion, teamwork, and fun. These values guide everything we do as a team and help us grow not just as robotics competitors, but as well-rounded individuals prepared for future challenges.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Gracious Professionalism and Coopertition</h3>
+            <p>Gracious Professionalism is part of the ethos of FIRST. It's a way of doing things that encourages high-quality work, emphasizes the value of others, and respects individuals and the community. With Gracious Professionalism, fierce competition and mutual gain are not separate notions.</p>
+            
+            <p>Coopertition is displaying unqualified kindness and respect in the face of fierce competition. Coopertition is founded on the concept and a philosophy that teams can and should help and cooperate with each other even as they compete. Coopertition involves learning from teammates and mentors, teaching others, competing hard while treating others with respect and kindness.</p>
+        </div>
+    </div>
+
+    <div id="about-us" class="page">
+        <h2 class="section-title">About Our Team</h2>
+        
+        <div class="image-placeholder" id="team-photo-img">
+            <img src="" alt="Nano Knights Team Photo">
+            <div class="image-placeholder-text">
+                Team Photo<br>
+                <small>Replace with: document.getElementById('team-photo-img').querySelector('img').src = 'YOUR_IMAGE_URL'</small>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3>Team Overview</h3>
+            <p>Our team is comprised of individuals who share a deep passion for engineering and coding, which is why we have decided to participate in FTC. Each member of our team has been assigned a specific role to fulfill, and we are all eager to work together to achieve our goals. Despite the challenges that we may face, we are excited to embark on this journey and to learn from one another.</p>
+            
+            <p>We understand that this competition will require hard work and dedication, but we are confident that we have what it takes to succeed. As we work towards our common goal, we are committed to maintaining open lines of communication and collaboration. We believe that by leveraging each other's strengths and expertise, we can create something truly remarkable.</p>
+            
+            <p>FTC is not just a competition for us, it is an opportunity to pursue our passions, to challenge ourselves, and to make a meaningful impact in the world of engineering and coding. We are grateful for this experience, and we look forward to the journey ahead.</p>
+        </div>
+
+        <div class="team-member">
+            <h4>Shreehan Pawar</h4>
+            <p>I joined robotics because I enjoy coding games and small websites, and it seemed like a fun and exciting new adventure. One of the things I like most about being on the team is that I can always count on everyone for help and support—it feels like a real community. I've contributed to different parts of the FTC experience by helping develop and test code for the robot during both the autonomous and driver-controlled periods, and I enjoy solving problems and making improvements through trial and error.</p>
+        </div>
+
+        <div class="team-member">
+            <h4>Turaab Ali</h4>
+            <p>I joined FTC because of my passion for building and problem-solving, which started when I was a kid playing with LEGOs. I've always enjoyed designing, experimenting, and finding creative solutions to challenges. FTC gives me the chance to apply those skills in a real-world setting while working with a team that's just as motivated and curious. One of the things I like most about being in this team is how it pushes me to grow while still being fun and collaborative. I've contributed by helping design, test, and improve our robot's systems to make sure it performs at its best during competitions.</p>
+        </div>
+
+        <div class="team-member">
+            <h4>Jay Tomar</h4>
+            <p>I am very passionate about robotics and I aspire to be an engineer. I like how the team is structured in a way that allows everyone to contribute. Our team is very friendly which makes every day a blast. FTC fuels my aspiration towards engineering, allowing me to explore my interests and honing my problem solving skills. I have contributed to both the coding and building sides of our robot. I also contribute during team discussions by sharing ideas, helping with troubleshooting, and helping my teammates during competitions and meetings.</p>
+        </div>
+
+        <div class="team-member">
+            <h4>Aakash Kodali</h4>
+            <p>I joined robotics and FTC because of my never ending love for building, coding, and even just looking at cool mechanisms. I first started with simple LEGOs which led me to love building. Since the 2nd grade I have always wanted to be an engineer and go to the highest level of robotics.</p>
+        </div>
+    </div>
+
+    <div id="mission" class="page">
+        <h2 class="section-title">Our Mission</h2>
+        
+        <div class="content-section">
+            <h3>Mission Statement</h3>
+            <p>At Nano Knights, our mission is to spark innovation and curiosity through robotics. We aim to build creative, high-performing robots while growing as a team of problem-solvers, engineers, and leaders. Guided by the principles of Gracious Professionalism and Coopertition, we strive to support one another, compete with integrity, and make a positive impact in our community.</p>
+            
+            <p>As Nano Knights, we believe that even the smallest ideas can lead to the biggest breakthroughs. Our name reflects this philosophy - that size doesn't determine impact, and that precision, dedication, and teamwork can overcome any challenge.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Our Values</h3>
+            <p><strong>Innovation:</strong> We constantly seek new and creative solutions to engineering challenges. We encourage experimentation and learning from both successes and failures.</p>
+            
+            <p><strong>Teamwork:</strong> Every member of our team plays a crucial role in our success. We value collaboration, communication, and mutual support in everything we do.</p>
+            
+            <p><strong>Excellence:</strong> We are committed to producing high-quality work in all aspects of our program, from robot design to community outreach.</p>
+            
+            <p><strong>Integrity:</strong> We compete fairly and treat all teams with respect. We uphold the values of Gracious Professionalism in every interaction.</p>
+            
+            <p><strong>Community Impact:</strong> We are dedicated to sharing our passion for STEM with others and making a positive difference in our community.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Looking Forward</h3>
+            <p>As we continue our journey in FIRST Tech Challenge, we remain committed to continuous improvement. We learn from every competition, every practice session, and every challenge we face. Our goal is not just to build better robots, but to become better engineers, better teammates, and better members of the FIRST community.</p>
+        </div>
+    </div>
+
+    <div id="robot" class="page">
+        <h2 class="section-title">Robot Design</h2>
+        
+        <div class="image-placeholder" id="robot-main-img">
+            <img src="" alt="DECODE Season Robot">
+            <div class="image-placeholder-text">
+                Main Robot Image<br>
+                <small>Replace with: document.getElementById('robot-main-img').querySelector('img').src = 'YOUR_IMAGE_URL'</small>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3>DECODE Season 2025-2026</h3>
+            <p>Our robot for the DECODE season represents the culmination of everything we've learned over our two years in FTC. Building on the experience from Into The Deep, we've designed a robot that combines reliability, precision, and innovative problem-solving.</p>
+            
+            <p>The design process involved extensive planning, CAD modeling, prototyping, and testing. Each subsystem was carefully considered to ensure optimal performance and compatibility with our overall strategy.</p>
+        </div>
+
+        <div class="robot-specs">
+            <div class="spec-item">
+                <div class="spec-label">Drive Train</div>
+                <div class="spec-value">Mecanum Wheels</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Programming</div>
+                <div class="spec-value">Java</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Control System</div>
+                <div class="spec-value">REV Control Hub</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Autonomous</div>
+                <div class="spec-value">Computer Vision</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Build Time</div>
+                <div class="spec-value">300+ hours</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Team Size</div>
+                <div class="spec-value">4 members</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3>Robot Gallery</h3>
+            <div class="image-grid">
+                <div>
+                    <div class="image-grid-item" id="robot-img-1">
+                        <img src="" alt="Robot Detail 1">
+                        <div class="image-placeholder-text">
+                            Robot Detail 1<br>
+                            <small>ID: robot-img-1</small>
+                        </div>
+                    </div>
+                    <div class="image-caption">Drive Train & Chassis</div>
+                </div>
+                <div>
+                    <div class="image-grid-item" id="robot-img-2">
+                        <img src="" alt="Robot Detail 2">
+                        <div class="image-placeholder-text">
+                            Robot Detail 2<br>
+                            <small>ID: robot-img-2</small>
+                        </div>
+                    </div>
+                    <div class="image-caption">Mechanism Close-up</div>
+                </div>
+                <div>
+                    <div class="image-grid-item" id="robot-img-3">
+                        <img src="" alt="Robot Detail 3">
+                        <div class="image-placeholder-text">
+                            Robot Detail 3<br>
+                            <small>ID: robot-img-3</small>
+                        </div>
+                    </div>
+                    <div class="image-caption">Autonomous Setup</div>
+                </div>
+                <div>
+                    <div class="image-grid-item" id="robot-img-4">
+                        <img src="" alt="Robot Detail 4">
+                        <div class="image-placeholder-text">
+                            Robot Detail 4<br>
+                            <small>ID: robot-img-4</small>
+                        </div>
+                    </div>
+                    <div class="image-caption">Competition Ready</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3>Design Philosophy</h3>
+            <p>Our approach to robot design focuses on creating mechanisms that are both effective and reliable. We prioritize simplicity where possible, knowing that simpler systems are easier to maintain and troubleshoot during competitions.</p>
+            
+            <p>Each design decision is made with careful consideration of the game requirements, our team's capabilities, and the lessons we've learned from previous competitions. We utilize CAD software to plan our builds and ensure all components work together harmoniously.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Programming Strategy</h3>
+            <p>Our programming team has developed sophisticated autonomous routines that leverage computer vision and sensor feedback. We continuously refine our code through testing and iteration, ensuring consistent performance in competition.</p>
+            
+            <p>Driver control programs are designed with input from our operators to provide precise, responsive control. We implement failsafes and error handling to maintain stability even under challenging conditions.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Continuous Improvement</h3>
+            <p>Throughout the season, we maintain detailed documentation of our robot's performance. This allows us to identify areas for improvement and make data-driven decisions about modifications and refinements.</p>
+        </div>
+    </div>
+
+    <div id="achievements" class="page">
+        <h2 class="section-title">Achievements & Timeline</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2025-2026 Season</div>
+                <div class="timeline-content">
+                    <h4>DECODE Season</h4>
+                    <p>Currently competing in the 2025-2026 DECODE season. Building on our previous experience and applying lessons learned to achieve even better results. Focused on advancing through qualifiers to regional and state championships.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2024-2025 Season</div>
+                <div class="timeline-content">
+                    <h4>INTO THE DEEP - First Competition Season</h4>
+                    <p>Our inaugural season in FTC. Competed in the Into The Deep challenge and achieved 8th place in our league, surpassing our initial expectations as a first-year team. This season established our foundation and proved that our team could compete effectively at the FTC level.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">2024</div>
+                <div class="timeline-content">
+                    <h4>Team Formation</h4>
+                    <p>Nano Knights FTC Team 26147 was established with four dedicated members passionate about robotics, engineering, and STEM education. We began building our team structure, learning FTC requirements, and preparing for our first competitive season.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h3>Key Accomplishments</h3>
+            <p><strong>League Performance:</strong> Achieved 8th place in our league during the Into The Deep season, demonstrating competitive capability as a first-year team.</p>
+            
+            <p><strong>Team Development:</strong> Successfully built a cohesive four-member team with clear roles and responsibilities, establishing effective communication and collaboration practices.</p>
+            
+            <p><strong>Technical Growth:</strong> Developed proficiency in robot design, CAD modeling, programming, and competition strategy over two seasons.</p>
+            
+            <p><strong>Community Engagement:</strong> Established relationships with sponsors and began building our presence in the local STEM community.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Looking Ahead</h3>
+            <p>As we continue in our second year of competition, we're focused on building upon our first season's success. Our goals include advancing further in competition, earning recognition for our engineering excellence, and continuing to grow as individuals and as a team.</p>
+        </div>
+
+        <div class="image-grid">
+            <div>
+                <div class="image-grid-item" id="competition-img-1">
+                    <img src="" alt="Competition Photo 1">
+                    <div class="image-placeholder-text">
+                        Competition Photo 1<br>
+                        <small>ID: competition-img-1</small>
+                    </div>
+                </div>
+                <div class="image-caption">Into The Deep Competition</div>
+            </div>
+            <div>
+                <div class="image-grid-item" id="competition-img-2">
+                    <img src="" alt="Competition Photo 2">
+                    <div class="image-placeholder-text">
+                        Competition Photo 2<br>
+                        <small>ID: competition-img-2</small>
+                    </div>
+                </div>
+                <div class="image-caption">Team at Competition</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sponsors" class="page">
+        <h2 class="section-title">Our Sponsors</h2>
+        
+        <div class="content-section">
+            <h3>Thank You to Our Sponsors</h3>
+            <p>The Nano Knights would not be possible without the generous support of our sponsors. Their contributions enable us to purchase materials, register for competitions, and pursue our passion for robotics. We are deeply grateful for their belief in our team and their commitment to supporting STEM education.</p>
+        </div>
+
+        <div class="sponsor-card">
+            <h3>Baqir CPA</h3>
+            <p>We are proud to be sponsored by Baqir CPA, a trusted provider of tax and accounting services.</p>
+            
+            <h4>Services Provided</h4>
+            <ul>
+                <li>Tax return filing and tax planning for individuals</li>
+                <li>C-corporation, S-corporation, Partnership, Non-For-Profit tax return filing</li>
+                <li>Bookkeeping and financial statement preparation</li>
+            </ul>
+
+            <h4>Industry Experience</h4>
+            <ul>
+                <li>Real Estate Entities</li>
+                <li>Retail & Wholesale Companies</li>
+                <li>Manufacturing Companies</li>
+                <li>Healthcare Practices</li>
+                <li>Consulting Services</li>
+                <li>Full-service and Fast Food Restaurants</li>
+                <li>E-Commerce Businesses</li>
+                <li>High-net-worth Individuals</li>
+            </ul>
+
+            <p style="margin-top: 2rem;">You can trust their staff's expertise, as they participate in continuing professional education classes offered by local chapters of national tax and accounting associations to keep up with the ever-changing tax law and accounting landscape.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Become a Sponsor</h3>
+            <p>We are actively seeking additional sponsors to support our team's growth and success. Sponsorship opportunities are available at various levels, and we offer recognition on our robot, team materials, and website.</p>
+            
+            <p>Your support helps us purchase robot parts, register for competitions, attend workshops, and continue our mission of promoting STEM education in our community. We would be honored to discuss how your organization can partner with the Nano Knights.</p>
+            
+            <p>For sponsorship inquiries, please contact us at: <strong>nanoknights26147@gmail.com</strong></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Nano Knights FTC Team 26147</p>
+        <p>Inspiring Innovation Through Robotics</p>
+        <p>Gracious Professionalism | Coopertition | STEM Excellence</p>
+        <p class="contact-info">Contact: nanoknights26147@gmail.com</p>
+        <p style="margin-top: 1rem; color: #888;">© 2026 Nano Knights | Building Robots, Changing Futures</p>
+    </footer>
+
+    <script>
+        // Define showPage function first
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Image loading helper function
+        function loadImage(elementId, imageUrl) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const img = element.querySelector('img');
+                if (img) {
+                    img.src = imageUrl;
+                    img.onload = function() {
+                        element.classList.add('has-image');
+                    };
+                }
+            }
+        }
+
+        // Example usage (uncomment and replace with your image URLs):
+        // loadImage('home-robot-img', 'https://your-image-url.com/robot.jpg');
+        // loadImage('robot-main-img', 'https://your-image-url.com/robot-main.jpg');
+        // loadImage('robot-img-1', 'https://your-image-url.com/detail1.jpg');
+        // loadImage('robot-img-2', 'https://your-image-url.com/detail2.jpg');
+        // loadImage('robot-img-3', 'https://your-image-url.com/detail3.jpg');
+        // loadImage('robot-img-4', 'https://your-image-url.com/detail4.jpg');
+        // loadImage('team-photo-img', 'https://your-image-url.com/team.jpg');
+        // loadImage('competition-img-1', 'https://your-image-url.com/comp1.jpg');
+        // loadImage('competition-img-2', 'https://your-image-url.com/comp2.jpg');
+
+        let lastScroll = 0;
+        const nav = document.querySelector('.nav');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                nav.style.boxShadow = 'none';
+            } else {
+                nav.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
