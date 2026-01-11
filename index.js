@@ -52,20 +52,23 @@ function loadImageLink(elementId, imageUrl) {
 }
 
 // Example usage (uncomment and replace with your image URLs):
-loadImage('home-robot-img', 'https://placehold.co/1920x1080.png?text=Change%20this%20placeholer%20image');
+loadImage('home-robot-img', './media/Team image 1.jpeg');
+loadImageLink("robot-img-2", "./media/Team image 1.jpeg");
 loadVideo('robot-main-video', './media/shooting.mp4');
 loadImage("robot-img-1", "./media/bottomplate.jpeg");
 loadImageLink("robot-img-1", "./media/bottomplate.jpeg");
 loadImage("robot-img-2", "./media/drivetrain.jpeg");
 loadImageLink("robot-img-2", "./media/drivetrain.jpeg");
-loadImage('robot-img-3', './media/drivetrain.jpeg');
-loadImage('robot-img-4', './media/drivetrain.jpeg');
+loadImage('robot-img-3', './media/shooter.jpeg');
+loadImageLink("robot-img-3", "./media/shooter.jpeg");
+loadImage('robot-img-4', './media/Intake.jpeg');
+loadImageLink("robot-img-2", "./media/Intake.jpeg");
 loadImage('robot-img-5', './media/drivetrain.jpeg');
 loadImage('robot-img-6', './media/drivetrain.jpeg');
 loadVideo('robot-video-1', './media/spindex.mp4');
-loadVideo('robot-video-2', './media/spindex.mp4');
+loadVideo('robot-video-2', './media/Auton.mp4');
 loadVideo('robot-video-3', './media/spindex.mp4');
-loadImage('team-photo-img', 'https://placehold.co/1920x1080.png?text=Change%20this%20placeholer%20image');
+loadImage('team-photo-img', './media/Team image 1.jpeg');
 loadImage('competition-img-1', 'https://placehold.co/1920x1080.png?text=Change%20this%20placeholer%20image');
 loadImage('competition-img-2', 'https://placehold.co/1920x1080.png?text=Change%20this%20placeholer%20image');
 
