@@ -52,7 +52,7 @@ function loadImageLink(elementId, imageUrl) {
 }
 
 // Example usage (uncomment and replace with your image URLs):
-loadImage('home-robot-img', './media/Team image 1.jpeg');
+loadImage('home-robot-img', './media/teamphoto.jpeg');
 loadImageLink("robot-img-2", "./media/Team image 1.jpeg");
 loadVideo('robot-main-video', './media/shooting.mp4');
 loadImage("robot-img-1", "./media/bottomplate.jpeg");
@@ -68,7 +68,7 @@ loadImage('robot-img-6', './media/drivetrain.jpeg');
 loadVideo('robot-video-1', './media/spindex.mp4');
 loadVideo('robot-video-2', './media/Auton.mp4');
 loadVideo('robot-video-3', './media/spindex.mp4');
-loadImage('team-photo-img', './media/Team image 1.jpeg');
+loadImage('team-photo-img', './media/working.jpeg');
 loadImage('competition-img-1', 'https://placehold.co/1920x1080.png?text=Change%20this%20placeholer%20image');
 loadImage('competition-img-2', 'https://placehold.co/1920x1080.png?text=Change%20this%20placeholer%20image');
 
