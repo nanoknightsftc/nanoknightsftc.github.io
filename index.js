@@ -53,7 +53,7 @@ function loadImageLink(elementId, imageUrl) {
 
 // Example usage (uncomment and replace with your image URLs):
 loadImage('home-robot-img', './media/teamphoto.jpeg');
-loadImage('ftc-img', './media/ftclogo.jpeg')
+loadImage('ftc-img', "./media/ftclogo.jpeg")
 loadImageLink("robot-img-2", "./media/Team image 1.jpeg");
 loadVideo('robot-main-video', './media/shooting.mp4');
 loadImage("robot-img-1", "./media/bottomplate.jpeg");
