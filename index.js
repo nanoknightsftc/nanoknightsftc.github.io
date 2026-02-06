@@ -53,6 +53,7 @@ function loadImageLink(elementId, imageUrl) {
 
 // Example usage (uncomment and replace with your image URLs):
 loadImage('home-robot-img', './media/teamphoto.jpeg');
+loadImage('ftc-img' ,  './media/ftclogo.jpg')
 loadImageLink("robot-img-2", "./media/Team image 1.jpeg");
 loadVideo('robot-main-video', './media/shooting.mp4');
 loadImage("robot-img-1", "./media/bottomplate.jpeg");
@@ -71,6 +72,7 @@ loadVideo('robot-video-3', './media/shootertesting.mp4');
 loadImage('team-photo-img', './media/working.jpeg');
 loadImage('competition-img-1', './media/intothedeep2.jpeg');
 loadImage('competition-img-2', './media/working.jpeg');
+loadImage('daye-img', './media/daye.jpg');
 
 let lastScroll = 0;
 const nav = document.querySelector(".nav");

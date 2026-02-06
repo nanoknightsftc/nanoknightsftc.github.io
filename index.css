@@ -292,7 +292,7 @@ body {
 
 .timeline {
   position: relative;
-  padding-left: 3rem;
+  padding-left: 3.245rem;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -304,7 +304,7 @@ body {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(180deg, #8b0000, #7b2cbf);
+  background: linear-gradient(180deg, #7b2cbf, #7b2cbf);
 }
 
 .timeline-item {
