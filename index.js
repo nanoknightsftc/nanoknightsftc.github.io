@@ -90,7 +90,7 @@ loadImage('decode-img-3', './media/team2.jpeg');
 loadImage('decode-img-4', './media/field.jpeg');
 loadImage('decode-img-5', './media/teams.jpeg');
 loadImage('decode-img-6', './media/shooter.jpeg');
-loadImage('decode-img-7', './media/thos.JPG');
+loadImage('decode-img-7', './media/senator.jpeg');
 loadImage('decode-img-8', './media/bottomplate.jpeg');
 loadImage('decode-img-9', './media/drivetrain.jpeg');
 loadImage('decode-img-10', './media/Intake.jpeg');
