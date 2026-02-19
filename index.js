@@ -93,7 +93,7 @@ loadImage('decode-img-6', './media/shooter.jpeg');
 loadImage('decode-img-7', './media/senator.jpeg');
 loadImage('decode-img-8', './media/bottomplate.jpeg');
 loadImage('decode-img-9', './media/drivetrain.jpeg');
-loadImage('decode-img-10', './media/Intake.peg');
+loadImage('decode-img-10', './media/Intake.jpeg');
 
 // ========================================
 // GALLERY - INTO THE DEEP SEASON (2024-2025)
