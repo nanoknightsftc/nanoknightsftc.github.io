@@ -514,3 +514,57 @@ footer p {
     padding: 2rem;
   }
 }
+
+.sponsor-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.tier-card {
+    background: #7b2cbf;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.tier-prime {
+    border-color: #21a6c7;
+}
+
+.tier-header {
+    margin-bottom: 1rem;
+}
+
+.tier-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000000;
+}
+
+.tier-header h4 {
+    font-size: 1.1rem;
+    margin: 0.25rem 0 0;
+    color: #fff;
+}
+
+.tier-card ul {
+    padding-left: 1.25rem;
+    margin: 0;
+}
+
+.tier-card ul li {
+    color: #ccc;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.fiscal-note {
+    background: rgba(185, 25, 25, 0.08);
+    border-left: 3px solid #b91919;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+}
