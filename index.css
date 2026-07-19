@@ -68,6 +68,91 @@ body {
   width: 100%;
 }
 
+.nav-links a.active {
+  color: #ffffff;
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* --- Terminal boot sequence (opt-in via ?boot=1) --------- */
+body.boot-active {
+  overflow: hidden;
+}
+
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #0a0015;
+  transition: opacity 0.4s ease;
+}
+
+.boot-overlay.boot-done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-terminal {
+  width: 100%;
+  max-width: 640px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #4ade80;
+}
+
+.boot-lines div {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.boot-cursor {
+  display: inline-block;
+  color: #b91919;
+  animation: blink 1s step-end infinite;
+}
+
+/* --- Scrolling ticker strip ------------------------------ */
+.ticker {
+  overflow: hidden;
+  background: rgba(10, 0, 21, 0.6);
+  border-top: 1px solid rgba(139, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(139, 0, 0, 0.4);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 26s linear infinite;
+}
+
+.ticker-content {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b794f6;
+  padding: 0.65rem 0;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .page {
   display: none;
   min-height: 100vh;
@@ -76,6 +161,32 @@ body {
 
 .page.active {
   display: block;
+  animation: page-fade-in 0.3s ease;
+}
+
+.page.page-leaving {
+  display: block;
+  animation: page-fade-out 0.2s ease forwards;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 .hero {
@@ -992,4 +1103,170 @@ footer p {
   .telemetry-strip { gap: 1.25rem; padding: 1rem; }
   .telemetry-divider { display: none; }
   .hero-photo-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ========================================================
+   SCROLL-REVEAL ANIMATIONS
+   ======================================================== */
+
+.reveal {
+  opacity: 0;
+  translate: 0 20px;
+  transition: opacity 0.6s ease, translate 0.6s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Slight stagger for elements that appear together in a grid/list */
+.stats .stat:nth-child(2),
+.robot-specs .spec-item:nth-child(2),
+.image-grid .image-grid-item:nth-child(2),
+.sponsor-logo-row .sponsor-logo-slot:nth-child(2),
+.sponsor-tiers .tier-card:nth-child(2) { --reveal-delay: 0.08s; }
+
+.stats .stat:nth-child(3),
+.robot-specs .spec-item:nth-child(3),
+.image-grid .image-grid-item:nth-child(3),
+.sponsor-logo-row .sponsor-logo-slot:nth-child(3),
+.sponsor-tiers .tier-card:nth-child(3) { --reveal-delay: 0.16s; }
+
+.stats .stat:nth-child(4),
+.robot-specs .spec-item:nth-child(4),
+.image-grid .image-grid-item:nth-child(4),
+.sponsor-logo-row .sponsor-logo-slot:nth-child(4),
+.sponsor-tiers .tier-card:nth-child(4) { --reveal-delay: 0.24s; }
+
+.stats .stat:nth-child(5),
+.robot-specs .spec-item:nth-child(5),
+.image-grid .image-grid-item:nth-child(5) { --reveal-delay: 0.32s; }
+
+.stats .stat:nth-child(6),
+.robot-specs .spec-item:nth-child(6),
+.image-grid .image-grid-item:nth-child(6) { --reveal-delay: 0.4s; }
+
+.timeline-item:nth-child(2) { --reveal-delay: 0.1s; }
+.timeline-item:nth-child(3) { --reveal-delay: 0.2s; }
+.timeline-item:nth-child(4) { --reveal-delay: 0.3s; }
+
+/* ========================================================
+   HERO CURSOR-FOLLOW GLOW
+   ======================================================== */
+
+.hero-compact {
+  --mx: 50%;
+  --my: 50%;
+}
+
+.hero-compact::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    rgba(185, 25, 25, 0.2),
+    rgba(123, 44, 191, 0.12) 35%,
+    transparent 60%
+  );
+  border-radius: 24px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+/* ========================================================
+   HOVER / INTERACTION POLISH
+   ======================================================== */
+
+.tier-card,
+.spec-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.tier-card:hover,
+.spec-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(139, 0, 0, 0.35);
+}
+
+.stat {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+  border-color: #b91919;
+  box-shadow: 0 20px 40px rgba(139, 0, 0, 0.4);
+}
+
+.image-grid-item img,
+.image-grid-item video {
+  transition: transform 0.4s ease;
+}
+
+.image-grid-item:hover img,
+.image-grid-item:hover video {
+  transform: scale(1.05);
+}
+
+.cta-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.cta-btn:hover::after {
+  left: 125%;
+}
+
+/* ========================================================
+   REDUCED MOTION
+   ======================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    translate: 0 0;
+    transition: none;
+  }
+
+  .ticker-track {
+    animation: none;
+  }
+
+  .hero-compact::after {
+    display: none;
+  }
+
+  .page.active,
+  .page.page-leaving {
+    animation: none;
+  }
+
+  .cta-btn::after {
+    display: none;
+  }
+
+  .boot-overlay {
+    display: none;
+  }
+
+  * {
+    scroll-behavior: auto !important;
+  }
 }

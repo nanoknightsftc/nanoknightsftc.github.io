@@ -7,17 +7,24 @@
     <title>Nano Knights - FTC Team Portfolio</title>
 </head>
 <body>
+    <div id="boot-overlay" class="boot-overlay" aria-hidden="true">
+        <div class="boot-terminal">
+            <div class="boot-lines" id="boot-lines"></div>
+            <span class="boot-cursor">_</span>
+        </div>
+    </div>
+
     <nav class="nav">
         <div class="logo" onclick="showPage('home')">NANO KNIGHTS</div>
         <ul class="nav-links">
-            <li><a onclick="showPage('home')">Home</a></li>
-            <li><a onclick="showPage('about-ftc')">About FTC</a></li>
-            <li><a onclick="showPage('about-us')">About Us</a></li>
-            <li><a onclick="showPage('mission')">Our Mission</a></li>
-            <li><a onclick="showPage('robot')">Robot</a></li>
-            <li><a onclick="showPage('achievements')">Achievements</a></li>
-            <li><a onclick="showPage('gallery')">Gallery</a></li>
-            <li><a onclick="showPage('sponsors')">Sponsors</a></li>
+            <li><a data-page="home" onclick="showPage('home')">Home</a></li>
+            <li><a data-page="about-ftc" onclick="showPage('about-ftc')">About FTC</a></li>
+            <li><a data-page="about-us" onclick="showPage('about-us')">About Us</a></li>
+            <li><a data-page="mission" onclick="showPage('mission')">Our Mission</a></li>
+            <li><a data-page="robot" onclick="showPage('robot')">Robot</a></li>
+            <li><a data-page="achievements" onclick="showPage('achievements')">Achievements</a></li>
+            <li><a data-page="gallery" onclick="showPage('gallery')">Gallery</a></li>
+            <li><a data-page="sponsors" onclick="showPage('sponsors')">Sponsors</a></li>
         </ul>
     </nav>
 
@@ -114,8 +121,8 @@
                     <div class="slot-label">Baqir CPA</div>
                 </div>
                 <div class="sponsor-logo-slot" id="home-sponsor-2">
-                    <img src="" alt="Sponsor logo">
-                    <div class="slot-label">Your Logo Here</div>
+                    <img src="" alt="Metegrity logo">
+                    <div class="slot-label">Metegrity</div>
                 </div>
                 <div class="sponsor-logo-slot" id="home-sponsor-3">
                     <img src="" alt="Sponsor logo">
@@ -655,8 +662,8 @@
                     <div class="slot-label">Baqir CPA</div>
                 </div>
                 <div class="sponsor-logo-slot" id="sponsor-logo-2">
-                    <img src="" alt="Sponsor logo">
-                    <div class="slot-label">Open Slot</div>
+                    <img src="" alt="Metegrity logo">
+                    <div class="slot-label">Metegrity</div>
                 </div>
                 <div class="sponsor-logo-slot" id="sponsor-logo-3">
                     <img src="" alt="Sponsor logo">
@@ -705,6 +712,34 @@
             </ul>
 
             <p style="margin-top: 2rem;">You can trust their staff's expertise, as they participate in continuing professional education classes offered by local chapters of national tax and accounting associations to keep up with the ever-changing tax law and accounting landscape.</p>
+        </div>
+
+        <div class="sponsor-card">
+            <h3>Metegrity</h3>
+            <div class="image-placeholder framed-image" id="metegrity-img">
+                <img src="" alt="metegrity-img">
+                <div class="image-placeholder-text">
+                    Sponsor Image<br>
+                </div>
+            </div>
+
+            <p>We are proud to be sponsored by Metegrity, a trusted Asset Integrity Management (AIM) system provider for asset-intensive industries, with over 30 years in the industry, 1,350+ facilities worldwide, $1 trillion+ in managed assets, and a presence across 5 continents.</p>
+
+            <h4>Products Provided</h4>
+            <ul>
+                <li>Visions Enterprise&reg; &mdash; manage asset health using their Asset Integrity Management software for single- to multi-plant facilities</li>
+                <li>VISIONSGO&trade; &mdash; execute inspection management from the field using their mobile asset management solution</li>
+                <li>Visions RBI Bundle &mdash; intelligently analyze equipment's probability of failure (POF) and consequence of failure (COF)</li>
+            </ul>
+
+            <h4>Industry Experience</h4>
+            <ul>
+                <li>Oil & Gas</li>
+                <li>Chemical & Petrochemical</li>
+                <li>Other asset-intensive industries</li>
+            </ul>
+
+            <p style="margin-top: 2rem;">Metegrity is a global leader in asset integrity management software, collaborating closely with its clients to guide and drive smarter asset investments through practical, co-innovative solutions.</p>
         </div>
 
         <div class="content-section">
@@ -761,6 +796,13 @@
 </div>
         
 </div>
+    <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+            <span class="ticker-content">// TEAM 26147 &nbsp;&middot;&nbsp; DECODE 2025&ndash;2026 &nbsp;&middot;&nbsp; 8TH PLACE LEAGUE FINISH &nbsp;&middot;&nbsp; BUILDING ROBOTS, CHANGING FUTURES &nbsp;&middot;&nbsp; </span>
+            <span class="ticker-content">// TEAM 26147 &nbsp;&middot;&nbsp; DECODE 2025&ndash;2026 &nbsp;&middot;&nbsp; 8TH PLACE LEAGUE FINISH &nbsp;&middot;&nbsp; BUILDING ROBOTS, CHANGING FUTURES &nbsp;&middot;&nbsp; </span>
+        </div>
+    </div>
+
     <footer>
         <p>Nano Knights FTC Team 26147</p>
         <p>Inspiring Innovation Through Robotics</p>
