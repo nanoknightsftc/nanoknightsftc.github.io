@@ -52,6 +52,16 @@ function loadImageLink(elementId, imageUrl) {
 }
 
 // ========================================
+// HOME - Hero photo grid
+// ========================================
+loadImage('home-photo-1', './media/teamphoto.jpeg');
+loadImage('home-photo-2', './media/working.jpeg');
+loadImage('home-photo-3', './media/decode.jpeg');
+loadImage('home-photo-4', './media/senator.jpeg');
+loadImage('home-sponsor-1', './media/baqir-logo.png');
+loadImage('sponsor-logo-1', './media/baqir-logo.png');
+
+// ========================================
 // EXISTING IMAGES - Already loaded
 // ========================================
 loadImage('home-robot-img', './media/teamphoto.jpeg');

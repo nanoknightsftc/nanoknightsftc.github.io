@@ -338,8 +338,8 @@ body {
 }
 
 .sponsor-logo-slot {
-  width: 160px;
-  height: 90px;
+  width: 200px;
+  height: 120px;
   background: #ffffff;
   border-radius: 10px;
   display: flex;
@@ -356,8 +356,8 @@ body {
 }
 
 .sponsor-logo-slot img {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 92%;
+  max-height: 92%;
   object-fit: contain;
   display: none;
 }
