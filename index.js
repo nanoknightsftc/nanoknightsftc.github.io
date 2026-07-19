@@ -301,6 +301,48 @@ if (heroCompact && !prefersReducedMotion) {
 }
 
 // ========================================
+// CUSTOM CURSOR (desktop, fine-pointer only)
+// ========================================
+function initCustomCursor() {
+  const dot = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
+  if (!dot || !ring) return;
+
+  const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+  if (!hasFinePointer || prefersReducedMotion) return;
+
+  document.documentElement.classList.add("custom-cursor-active");
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = `${mouseX}px`;
+    dot.style.top = `${mouseY}px`;
+  });
+
+  function trackRing() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    ring.style.left = `${ringX}px`;
+    ring.style.top = `${ringY}px`;
+    requestAnimationFrame(trackRing);
+  }
+  requestAnimationFrame(trackRing);
+
+  document.querySelectorAll("a, button, .logo").forEach((el) => {
+    el.addEventListener("mouseenter", () => ring.classList.add("cursor-ring-hover"));
+    el.addEventListener("mouseleave", () => ring.classList.remove("cursor-ring-hover"));
+  });
+}
+
+initCustomCursor();
+
+// ========================================
 // ACTIVE NAV LINK ON LOAD
 // ========================================
 const initialActivePage = document.querySelector(".page.active");
