@@ -1,69 +1,3 @@
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// ========================================
-// TERMINAL BOOT SEQUENCE (opt-in via ?boot=1)
-// ========================================
-function initBootSequence() {
-  const overlay = document.getElementById("boot-overlay");
-  if (!overlay) return;
-
-  const params = new URLSearchParams(window.location.search);
-  const bootEnabled = params.get("boot") === "1";
-
-  if (!bootEnabled || prefersReducedMotion) {
-    overlay.remove();
-    return;
-  }
-
-  document.body.classList.add("boot-active");
-  const linesEl = document.getElementById("boot-lines");
-  const lines = [
-    "> INITIALIZING NANO KNIGHTS TERMINAL...",
-    "> TEAM 26147 // DECODE 2025-2026",
-    "> LOADING ROSTER... [OK]",
-    "> CALIBRATING DRIVETRAIN... [OK]",
-    "> ESTABLISHING UPLINK... [OK]",
-    "> WELCOME TO THE NANO KNIGHTS.",
-  ];
-
-  const typeSpeed = 18;
-  const lineDelay = 180;
-  let lineIndex = 0;
-
-  function typeLine() {
-    if (lineIndex >= lines.length) {
-      window.setTimeout(() => {
-        overlay.classList.add("boot-done");
-        document.body.classList.remove("boot-active");
-        window.setTimeout(() => overlay.remove(), 500);
-      }, 500);
-      return;
-    }
-
-    const div = document.createElement("div");
-    linesEl.appendChild(div);
-    const text = lines[lineIndex];
-    let charIndex = 0;
-
-    function typeChar() {
-      div.textContent = text.slice(0, charIndex);
-      charIndex++;
-      if (charIndex <= text.length) {
-        window.setTimeout(typeChar, typeSpeed);
-      } else {
-        lineIndex++;
-        window.setTimeout(typeLine, lineDelay);
-      }
-    }
-
-    typeChar();
-  }
-
-  typeLine();
-}
-
-initBootSequence();
-
 // Define showPage function first
 function showPage(pageId) {
   const target = document.getElementById(pageId);
@@ -74,23 +8,11 @@ function showPage(pageId) {
     link.classList.toggle("active", link.dataset.page === pageId);
   });
 
-  const activateTarget = () => {
-    document.querySelectorAll(".page").forEach((page) => {
-      page.classList.remove("active", "page-leaving");
-    });
-    target.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    requestAnimationFrame(() => recheckRevealsIn(target));
-  };
-
-  if (!current || prefersReducedMotion) {
-    activateTarget();
-    return;
-  }
-
-  current.classList.remove("active");
-  current.classList.add("page-leaving");
-  window.setTimeout(activateTarget, 200);
+  document.querySelectorAll(".page").forEach((page) => {
+    page.classList.remove("active");
+  });
+  target.classList.add("active");
+  window.scrollTo(0, 0);
 }
 
 // Image loading helper function
@@ -150,7 +72,6 @@ loadImage('sponsor-logo-2', './media/metegrity-logo.png');
 loadImage('home-robot-img', './media/teamphoto.jpeg');
 loadImage('ftc-img', "./media/ftclogo.jpeg")
 loadImageLink("robot-img-2", "./media/Team image 1.jpeg");
-loadVideo('robot-main-video', './media/shooting.mp4');
 loadImage("robot-img-1", "./media/bottomplate.jpeg");
 loadImageLink("robot-img-1", "./media/bottomplate.jpeg");
 loadImage("robot-img-2", "./media/drivetrain.jpeg");
@@ -192,155 +113,14 @@ loadImage('itd-img-2', './media/idp4.jpeg');
 loadImage('itd-img-3', './media/intothedeep3.jpeg');
 loadImage('itd-img-4', './media/intothedeep2.jpeg');
 
-let lastScroll = 0;
+// ========================================
+// NAV BAR SHADOW ON SCROLL
+// ========================================
 const nav = document.querySelector(".nav");
 
 window.addEventListener("scroll", () => {
-  const currentScroll = window.pageYOffset;
-
-  if (currentScroll <= 0) {
-    nav.style.boxShadow = "none";
-  } else {
-    nav.style.boxShadow = "0 5px 20px rgba(0, 0, 0, 0.5)";
-  }
-
-  lastScroll = currentScroll;
+  nav.style.boxShadow = window.pageYOffset <= 0 ? "none" : "0 5px 20px rgba(0, 0, 0, 0.5)";
 });
-
-// ========================================
-// SCROLL-REVEAL + COUNT-UP ANIMATIONS
-// ========================================
-const REVEAL_SELECTOR =
-  ".content-section, .team-member, .sponsor-card, .tier-card, .stat, .spec-item, " +
-  ".timeline-item, .image-grid-item, .sponsor-logo-slot, .telemetry-strip";
-
-let revealObserver = null;
-
-function animateCountUp(el) {
-  const raw = el.textContent.trim();
-  const match = raw.match(/^(\d+)(.*)$/);
-  if (!match) return;
-
-  const targetValue = parseInt(match[1], 10);
-  const suffix = match[2];
-  const duration = 1800;
-  const start = performance.now();
-
-  function tick(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const eased = Math.pow(progress, 3);
-    el.textContent = Math.round(targetValue * eased) + suffix;
-    if (progress < 1) {
-      requestAnimationFrame(tick);
-    } else {
-      el.textContent = targetValue + suffix;
-    }
-  }
-
-  requestAnimationFrame(tick);
-}
-
-function revealNow(el) {
-  if (el.classList.contains("in-view")) return;
-  el.classList.add("in-view");
-
-  if (prefersReducedMotion) return;
-  el.querySelectorAll(".telemetry-value, .stat-number").forEach(animateCountUp);
-}
-
-function recheckRevealsIn(container) {
-  if (!container) return;
-  container.querySelectorAll(".reveal:not(.in-view)").forEach((el) => {
-    const rect = el.getBoundingClientRect();
-    const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
-    if (inViewport) {
-      revealNow(el);
-      if (revealObserver) revealObserver.unobserve(el);
-    }
-  });
-}
-
-function setupScrollReveal() {
-  const elements = document.querySelectorAll(REVEAL_SELECTOR);
-  elements.forEach((el) => el.classList.add("reveal"));
-
-  if (prefersReducedMotion) {
-    elements.forEach((el) => el.classList.add("in-view"));
-    return;
-  }
-
-  revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          revealNow(entry.target);
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
-  );
-
-  elements.forEach((el) => revealObserver.observe(el));
-}
-
-setupScrollReveal();
-
-// ========================================
-// HERO CURSOR-FOLLOW GLOW
-// ========================================
-const heroCompact = document.querySelector(".hero-compact");
-if (heroCompact && !prefersReducedMotion) {
-  heroCompact.addEventListener("mousemove", (e) => {
-    const rect = heroCompact.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    heroCompact.style.setProperty("--mx", `${x}%`);
-    heroCompact.style.setProperty("--my", `${y}%`);
-  });
-}
-
-// ========================================
-// CUSTOM CURSOR (desktop, fine-pointer only)
-// ========================================
-function initCustomCursor() {
-  const dot = document.getElementById("cursor-dot");
-  const ring = document.getElementById("cursor-ring");
-  if (!dot || !ring) return;
-
-  const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
-  if (!hasFinePointer || prefersReducedMotion) return;
-
-  document.documentElement.classList.add("custom-cursor-active");
-
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let ringX = mouseX;
-  let ringY = mouseY;
-
-  document.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.left = `${mouseX}px`;
-    dot.style.top = `${mouseY}px`;
-  });
-
-  function trackRing() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    ring.style.left = `${ringX}px`;
-    ring.style.top = `${ringY}px`;
-    requestAnimationFrame(trackRing);
-  }
-  requestAnimationFrame(trackRing);
-
-  document.querySelectorAll("a, button, .logo").forEach((el) => {
-    el.addEventListener("mouseenter", () => ring.classList.add("cursor-ring-hover"));
-    el.addEventListener("mouseleave", () => ring.classList.remove("cursor-ring-hover"));
-  });
-}
-
-initCustomCursor();
 
 // ========================================
 // ACTIVE NAV LINK ON LOAD
