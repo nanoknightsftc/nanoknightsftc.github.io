@@ -18,6 +18,7 @@
             <li><a data-page="achievements" onclick="showPage('achievements')">Achievements</a></li>
             <li><a data-page="gallery" onclick="showPage('gallery')">Gallery</a></li>
             <li><a data-page="sponsors" onclick="showPage('sponsors')">Sponsors</a></li>
+            <li><a href="https://management.nanoknightsftc.com" target="_blank" rel="noopener">Team Hub</a></li>
         </ul>
     </nav>
 
@@ -653,7 +654,7 @@
                 <h3>Become a Sponsor</h3>
                 <p>Partner with the Nano Knights and put your brand behind a student team built on curiosity, grit, and gracious professionalism.</p>
             </div>
-            <a class="cta-btn sponsor-cta-btn" href="mailto:contact@nanoknightsftc.com">Get in Touch</a>
+            <a class="cta-btn sponsor-cta-btn" onclick="scrollToSponsorForm()">Get in Touch</a>
         </div>
 
         <div class="content-section">
@@ -797,6 +798,52 @@
             </ul>
 
             <p style="margin-top: 2rem;">Metegrity is a global leader in asset integrity management software, collaborating closely with its clients to guide and drive smarter asset investments through practical, co-innovative solutions.</p>
+        </div>
+
+        <div class="content-section sponsor-form-section" id="sponsor-form">
+            <h3>Get in Touch</h3>
+            <p>Interested in sponsoring the Nano Knights, or just have a question about our program? Fill out the form below and we'll get back to you directly.</p>
+
+            <form id="sponsor-contact-form" class="sponsor-form" action="https://formspree.io/f/xbgjnbjy" method="POST">
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                <input type="hidden" name="_subject" value="New Sponsorship Inquiry - Nano Knights Website">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sponsor-name">Name</label>
+                        <input type="text" id="sponsor-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsor-email">Email</label>
+                        <input type="email" id="sponsor-email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sponsor-company">Company / Organization</label>
+                        <input type="text" id="sponsor-company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsor-interest">Sponsorship Interest</label>
+                        <select id="sponsor-interest" name="sponsorship_interest">
+                            <option value="Not sure yet / just have a question">Not sure yet / Just have a question</option>
+                            <option value="Tier 1 - Up to $250">Tier 1 - Up to $250</option>
+                            <option value="Tier 2 - Up to $500">Tier 2 - Up to $500</option>
+                            <option value="Tier 3 - Up to $1,000">Tier 3 - Up to $1,000</option>
+                            <option value="Prime Sponsor - $2,500+">Prime Sponsor - $2,500+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sponsor-message">Message</label>
+                    <textarea id="sponsor-message" name="message" rows="5" required placeholder="Tell us a bit about your company and how you'd like to support the team."></textarea>
+                </div>
+
+                <button type="submit" class="cta-btn cta-primary sponsor-form-submit">Send Message</button>
+                <p id="sponsor-form-status" class="form-status" role="status"></p>
+            </form>
         </div>
 </div>
 

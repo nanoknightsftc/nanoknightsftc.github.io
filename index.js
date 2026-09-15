@@ -114,6 +114,48 @@ loadImage('itd-img-3', './media/intothedeep3.jpeg');
 loadImage('itd-img-4', './media/intothedeep2.jpeg');
 
 // ========================================
+// SPONSOR CONTACT FORM
+// ========================================
+function scrollToSponsorForm() {
+  const form = document.getElementById('sponsor-form');
+  if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const sponsorForm = document.getElementById('sponsor-contact-form');
+if (sponsorForm) {
+  sponsorForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const status = document.getElementById('sponsor-form-status');
+    const submitBtn = sponsorForm.querySelector('.sponsor-form-submit');
+    submitBtn.disabled = true;
+    status.textContent = '';
+    status.classList.remove('form-status-success', 'form-status-error');
+
+    try {
+      const response = await fetch(sponsorForm.action, {
+        method: 'POST',
+        body: new FormData(sponsorForm),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (response.ok) {
+        sponsorForm.reset();
+        status.textContent = "Thanks for reaching out! We'll get back to you soon.";
+        status.classList.add('form-status-success');
+      } else {
+        status.textContent = 'Something went wrong. Please email us directly at contact@nanoknightsftc.com.';
+        status.classList.add('form-status-error');
+      }
+    } catch (err) {
+      status.textContent = 'Something went wrong. Please email us directly at contact@nanoknightsftc.com.';
+      status.classList.add('form-status-error');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+}
+
+// ========================================
 // NAV BAR SHADOW ON SCROLL
 // ========================================
 const nav = document.querySelector(".nav");
