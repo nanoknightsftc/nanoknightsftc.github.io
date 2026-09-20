@@ -1,5 +1,7 @@
 // Define showPage function first
 function showPage(pageId) {
+  setNavOpen(false);
+
   const target = document.getElementById(pageId);
   const current = document.querySelector(".page.active");
   if (!target || target === current) return;
@@ -156,9 +158,43 @@ if (sponsorForm) {
 }
 
 // ========================================
-// NAV BAR SHADOW ON SCROLL
+// MOBILE / TABLET NAV MENU
 // ========================================
 const nav = document.querySelector(".nav");
+const navToggle = document.querySelector(".nav-toggle");
+
+function setNavOpen(open) {
+  if (!nav || !navToggle) return;
+  nav.classList.toggle("open", open);
+  navToggle.setAttribute("aria-expanded", String(open));
+}
+
+if (navToggle) {
+  navToggle.addEventListener("click", () => {
+    setNavOpen(!nav.classList.contains("open"));
+  });
+
+  // Tap anywhere outside the bar to dismiss
+  document.addEventListener("click", (e) => {
+    if (!nav.contains(e.target)) setNavOpen(false);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && nav.classList.contains("open")) {
+      setNavOpen(false);
+      navToggle.focus();
+    }
+  });
+
+  // Growing past the hamburger breakpoint (e.g. rotating a tablet) resets the menu
+  window.matchMedia("(min-width: 1101px)").addEventListener("change", (e) => {
+    if (e.matches) setNavOpen(false);
+  });
+}
+
+// ========================================
+// NAV BAR SHADOW ON SCROLL
+// ========================================
 
 window.addEventListener("scroll", () => {
   nav.style.boxShadow = window.pageYOffset <= 0 ? "none" : "0 5px 20px rgba(0, 0, 0, 0.5)";

@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css?v=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" href="./index.css?v=3">
     <title>Nano Knights - FTC Team Portfolio</title>
 </head>
 <body>
-    <nav class="nav">
+    <nav class="nav" aria-label="Main">
         <div class="logo" onclick="showPage('home')">NANO KNIGHTS</div>
-        <ul class="nav-links">
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
             <li><a data-page="home" onclick="showPage('home')">Home</a></li>
             <li><a data-page="about-ftc" onclick="showPage('about-ftc')">About FTC</a></li>
             <li><a data-page="about-us" onclick="showPage('about-us')">About Us</a></li>
@@ -357,19 +360,19 @@
                 </div>
                 <div>
                     <div class="image-grid-item" id="robot-video-1">
-                        <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted ></video>
+                        <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted playsinline></video>
                     </div>
                     <div class="video-caption">Spindex Development</div>
                 </div>
                 <div>
                     <div class="image-grid-item" id="robot-video-2">
-                        <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted ></video>
+                        <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted playsinline></video>
                     </div>
                     <div class="video-caption">Mecanum Development</div>
                 </div>
                 <div>
                     <div class="image-grid-item" id="robot-video-3">
-                        <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted ></video>
+                        <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted playsinline></video>
                     </div>
                     <div class="video-caption">Shooter Development</div>
                 </div>
@@ -860,6 +863,6 @@
         <p>Copyright (c) 2026 nanoknightsftc</p>
         
     
-        <script src="./index.js?v=2"></script>
+        <script src="./index.js?v=3"></script>
 </body>
 </html>
