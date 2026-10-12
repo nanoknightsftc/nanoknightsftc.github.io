@@ -85,6 +85,10 @@ h1, h2, h3, h4 {
   border-bottom: 1px solid var(--color-border-gold);
 }
 
+.nav.scrolled {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
 .logo {
   font-family: "JetBrains Mono", monospace;
   font-size: 1.8rem;
@@ -251,6 +255,28 @@ h1, h2, h3, h4 {
   line-height: 1.8;
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);
   margin-bottom: 1rem;
+}
+
+/* Robot page: the three approach notes as one compact row */
+.approach-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 0.5rem + 2vw, 1.75rem);
+}
+
+.approach-item h4 {
+  font-size: 0.95rem;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.content-section.approach-strip p {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  margin-bottom: 0;
 }
 
 .team-member {

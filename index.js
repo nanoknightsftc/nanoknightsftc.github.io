@@ -17,16 +17,35 @@ function showPage(pageId) {
   window.scrollTo(0, 0);
 }
 
+// Images start loading only when their box gets near the screen. We watch the
+// box, not the <img>: the <img> is display:none until it loads, and the
+// browser's own loading="lazy" never fires for a hidden image.
+const lazyImageObserver = "IntersectionObserver" in window
+  ? new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        entry.target.querySelector("img").src = entry.target.dataset.imageUrl;
+      });
+    }, { rootMargin: "600px 0px" })
+  : null;
+
 // Image loading helper function
 function loadImage(elementId, imageUrl) {
   const element = document.getElementById(elementId);
   if (element) {
     const img = element.querySelector("img");
     if (img) {
-      img.src = imageUrl;
+      img.decoding = "async";
       img.onload = () => {
         element.classList.add("has-image");
       };
+      if (lazyImageObserver) {
+        element.dataset.imageUrl = imageUrl;
+        lazyImageObserver.observe(element);
+      } else {
+        img.src = imageUrl;
+      }
     }
   }
 }
@@ -37,6 +56,7 @@ function loadVideo(elementId, videoUrl) {
   if (element) {
     const video = element.querySelector("video");
     if (video) {
+      video.preload = "metadata"; // only fetch the first frame until someone presses play
       video.src = videoUrl;
       video.onload = () => {
         element.classList.add("has-image");
@@ -87,11 +107,18 @@ loadImage('robot-img-6', './media/topdown.jpeg');
 loadVideo('robot-video-1', './media/spindex.mp4');
 loadVideo('robot-video-2', './media/Auton.mp4');
 loadVideo('robot-video-3', './media/shootertesting.mp4');
+loadVideo('biobuzz-robot-video-1', './media/shooter-prototype.mp4');
 loadImage('team-photo-img', './media/working.jpeg');
 loadImage('competition-img-1', './media/intothedeep2.jpeg');
 loadImage('competition-img-2', './media/working.jpeg');
 loadImage('daye-img', './media/daye.jpeg');
 loadImage('metegrity-img', './media/metegrity-industries.jpg');
+
+// ========================================
+// GALLERY - BIOBUZZ SEASON (2026-2027)
+// ========================================
+loadImage('biobuzz-img-1', './media/biobuzz.jpeg');
+loadVideo('biobuzz-video-1', './media/shooter-prototype.mp4');
 
 // ========================================
 // GALLERY - DECODE SEASON (2025-2026)
@@ -196,9 +223,15 @@ if (navToggle) {
 // NAV BAR SHADOW ON SCROLL
 // ========================================
 
+// Only touch the DOM when the state actually flips, not on every scroll frame
+let navScrolled = false;
 window.addEventListener("scroll", () => {
-  nav.style.boxShadow = window.pageYOffset <= 0 ? "none" : "0 5px 20px rgba(0, 0, 0, 0.5)";
-});
+  const scrolled = window.scrollY > 0;
+  if (scrolled !== navScrolled) {
+    navScrolled = scrolled;
+    nav.classList.toggle("scrolled", scrolled);
+  }
+}, { passive: true });
 
 // ========================================
 // ACTIVE NAV LINK ON LOAD
