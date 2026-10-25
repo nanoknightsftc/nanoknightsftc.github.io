@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <link rel="stylesheet" href="./index.css?v=6">
+    <link rel="stylesheet" href="./index.css?v=7">
     <title>Nano Knights - FTC Team Portfolio</title>
 </head>
 <body>
@@ -119,6 +119,44 @@
                 </div>
             </div>
         </div>
+
+        <section class="testimonials" aria-labelledby="testimonials-title">
+            <div class="sponsor-strip-header">
+                <h2 class="sponsor-strip-title testimonials-title" id="testimonials-title">// What People Say</h2>
+                <a class="sponsor-strip-link" href="mailto:contact@nanoknightsftc.com?subject=Nano%20Knights%20testimonial">Share your experience &rarr;</a>
+            </div>
+            <!-- To add another testimonial, copy this whole <figure> block and paste it below this one.
+                 With 2 or more, the section turns into a slideshow automatically (see index.js). -->
+            <div class="testimonial-list">
+                <figure class="testimonial">
+                    <svg class="testimonial-mark" viewBox="0 0 32 24" aria-hidden="true" focusable="false">
+                        <path d="M0 24V14.6C0 6.6 4.6 1.7 12.2 0l1.3 3.1C9.2 4.6 7 7.6 6.8 11.3H13V24H0Zm18 0V14.6C18 6.6 22.6 1.7 30.2 0l1.3 3.1C27.2 4.6 25 7.6 24.8 11.3H31V24H18Z"/>
+                    </svg>
+                    <blockquote>
+                        <p>It was great to see the Robotics demo led by NanoKnights at George Memorial Library. My two children (ages 5 and 8) had a great time setting up with the course track for the robot, and taking turns maneuvering the robot around the track. The team and their parents were also very helpful in answering questions on the robot itself, as well as how to get involved with FIRST Robotics as my children grow.</p>
+                    </blockquote>
+                    <figcaption>
+                        <span class="testimonial-name">Ms. Pegah Taylor</span>
+                        <span class="testimonial-role">Parent, outreach event at George Memorial Library</span>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="testimonial-controls" hidden>
+                <div class="testimonial-dots" role="group" aria-label="Choose a testimonial"></div>
+                <div class="testimonial-buttons">
+                    <button type="button" class="testimonial-btn" data-action="prev" aria-label="Previous testimonial">
+                        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5"/></svg>
+                    </button>
+                    <button type="button" class="testimonial-btn" data-action="pause" aria-label="Pause testimonials">
+                        <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.5v9M10.5 3.5v9"/></svg>
+                        <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.2v9.6L12.5 8Z"/></svg>
+                    </button>
+                    <button type="button" class="testimonial-btn" data-action="next" aria-label="Next testimonial">
+                        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m6 3 5 5-5 5"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
 
         <div class="image-placeholder framed-image" id="home-robot-img">
             <img src="" alt="Nano Knights Robot">
@@ -897,6 +935,6 @@
         <p>Copyright (c) 2026 nanoknightsftc</p>
         
     
-        <script src="./index.js?v=7"></script>
+        <script src="./index.js?v=8"></script>
 </body>
 </html>

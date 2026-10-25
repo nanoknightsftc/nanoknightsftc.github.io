@@ -1015,6 +1015,277 @@ footer p {
 .framed-image::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
 .framed-image::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
 
+/* Testimonials (home, under the sponsor strip).
+   Each quote is a <figure class="testimonial">. With 2+, index.js adds .is-slideshow and
+   shows one at a time; without JS they stack with a gold rule between them. */
+.testimonials {
+  position: relative;
+  max-width: var(--content-max);
+  margin: 0 auto clamp(1.75rem, 5vw, 3rem);
+  padding: clamp(1.1rem, 3vw, 1.75rem) clamp(1rem, 3.5vw, 2rem) clamp(1.5rem, 4vw, 2.75rem);
+  background:
+    radial-gradient(ellipse at bottom left, rgba(169, 124, 47, 0.08), transparent 60%),
+    var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+}
+
+/* Gold corner brackets, same as .framed-image */
+.testimonials::before,
+.testimonials::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-gold);
+}
+.testimonials::before { top: -2px; left: -2px; border-right: none; border-bottom: none; border-top-left-radius: 16px; }
+.testimonials::after { bottom: -2px; right: -2px; border-left: none; border-top: none; border-bottom-right-radius: 16px; }
+
+.testimonials-title {
+  font-weight: 400;
+}
+
+.testimonial-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(0.5rem, 2vw, 1.25rem) clamp(0rem, 3vw, 1.5rem) 0;
+}
+
+.testimonial-list:not(.is-slideshow) .testimonial + .testimonial {
+  margin-top: clamp(1.5rem, 4vw, 2.25rem);
+  padding-top: clamp(1.5rem, 4vw, 2.25rem);
+  border-top: 1px solid var(--color-border-gold);
+}
+
+/* Slideshow: every slide shares one grid cell, so the box is as tall as the
+   longest quote and nothing below it jumps when the quote changes. */
+.testimonial-list.is-slideshow {
+  display: grid;
+  touch-action: pan-y; /* horizontal swipes go to the slideshow, vertical ones scroll the page */
+}
+
+.testimonial-list.is-slideshow .testimonial {
+  grid-area: 1 / 1;
+  align-content: start; /* shorter quotes keep their name right under them */
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s;
+}
+
+.testimonial-list.is-slideshow .testimonial:not(.is-active) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(1.25rem);
+  filter: blur(4px);
+  transition-duration: 0.35s, 0.35s, 0.35s, 0s;
+  transition-delay: 0s, 0s, 0s, 0.35s;
+}
+
+.testimonial-mark {
+  grid-row: span 2;
+  width: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem);
+  height: auto;
+  margin-top: 0.3rem;
+  fill: var(--color-gold);
+}
+
+.testimonial blockquote p {
+  max-width: 60ch;
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.4rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+.testimonial figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.testimonial figcaption::before {
+  content: "";
+  width: 2rem;
+  height: 2px;
+  background: var(--color-gold);
+}
+
+.testimonial-name {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.testimonial-role {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* Slideshow controls: dots on the left, back / pause / next on the right */
+.testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(1.25rem, 3vw, 1.75rem);
+  padding: 0 clamp(0rem, 3vw, 1.5rem);
+}
+.testimonial-controls[hidden] {
+  display: none;
+}
+
+.testimonial-dots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Each dot is a 28px-tall tap target; the visible pill is drawn by ::before/::after */
+.testimonial-dot {
+  --testimonial-interval: 7s;
+  position: relative;
+  width: 1.4rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.testimonial-dot::before,
+.testimonial-dot::after {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  right: 0.35rem;
+  top: 50%;
+  height: 0.5rem;
+  margin-top: -0.25rem;
+  border-radius: 999px;
+}
+
+.testimonial-dot::before {
+  background: var(--color-border-gold);
+  transition: background 0.2s ease;
+}
+
+.testimonial-dot:hover::before {
+  background: var(--color-gold);
+}
+
+/* The current dot stretches and fills with crimson as the timer runs down */
+.testimonial-dot[aria-current="true"] {
+  width: 2.6rem;
+}
+
+.testimonial-dot::after {
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.testimonial-dot[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.testimonials.is-autoplaying .testimonial-dot[aria-current="true"]::after {
+  animation: testimonial-progress var(--testimonial-interval) linear both;
+}
+
+.testimonials.is-held .testimonial-dot[aria-current="true"]::after {
+  animation-play-state: paused;
+}
+
+@keyframes testimonial-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.testimonial-dot:focus-visible,
+.testimonial-btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 999px;
+}
+
+.testimonial-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.testimonial-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--color-border-gold);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.testimonial-btn:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.testimonial-btn svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.testimonial-btn .icon-play {
+  fill: currentColor;
+  stroke-width: 1.5;
+}
+
+/* Pause button swaps to a play icon while the user has paused */
+.testimonial-btn .icon-play,
+.testimonials.is-user-paused .testimonial-btn .icon-pause {
+  display: none;
+}
+.testimonials.is-user-paused .testimonial-btn .icon-play {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-list.is-slideshow .testimonial,
+  .testimonial-list.is-slideshow .testimonial:not(.is-active),
+  .testimonial-dot {
+    transition: none;
+  }
+  .testimonial-list.is-slideshow .testimonial:not(.is-active) {
+    transform: none;
+    filter: none;
+  }
+}
+
 /* Sponsor contact form */
 .sponsor-form {
   display: flex;
@@ -1323,6 +1594,16 @@ footer p {
 
   .sponsor-card ul {
     line-height: 1.8;
+  }
+
+  /* Quote mark sits above the quote instead of beside it */
+  .testimonial {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .testimonial-mark {
+    grid-row: auto;
+    margin: 0 0 0.75rem;
   }
 
   .timeline {

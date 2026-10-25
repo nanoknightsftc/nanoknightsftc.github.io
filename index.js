@@ -185,6 +185,150 @@ if (sponsorForm) {
 }
 
 // ========================================
+// HOME - TESTIMONIAL SLIDESHOW
+// With one testimonial nothing happens. With 2+, one shows at a time and
+// they advance every 7s; hovering, focusing, or a hidden tab holds the timer.
+// ========================================
+const testimonialSection = document.querySelector(".testimonials");
+const testimonialSlides = testimonialSection
+  ? Array.from(testimonialSection.querySelectorAll(".testimonial"))
+  : [];
+
+if (testimonialSlides.length > 1) {
+  const INTERVAL = 7000;
+  const list = testimonialSection.querySelector(".testimonial-list");
+  const controls = testimonialSection.querySelector(".testimonial-controls");
+  const dotsWrap = testimonialSection.querySelector(".testimonial-dots");
+  const pauseBtn = testimonialSection.querySelector('[data-action="pause"]');
+  const holds = new Set(); // reasons the timer is on hold: "hover", "focus", "hidden"
+  let userPaused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let current = -1;
+  let timer = null;
+  let remaining = INTERVAL;
+  let startedAt = 0;
+
+  const isRunning = () => !userPaused && holds.size === 0;
+
+  const dots = testimonialSlides.map((slide, i) => {
+    slide.setAttribute("role", "group");
+    slide.setAttribute("aria-roledescription", "slide");
+    slide.setAttribute("aria-label", `${i + 1} of ${testimonialSlides.length}`);
+
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "testimonial-dot";
+    dot.setAttribute("aria-label", `Show testimonial ${i + 1}`);
+    dot.style.setProperty("--testimonial-interval", `${INTERVAL}ms`);
+    dot.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
+
+  function syncState() {
+    testimonialSection.classList.toggle("is-autoplaying", !userPaused);
+    testimonialSection.classList.toggle("is-user-paused", userPaused);
+    testimonialSection.classList.toggle("is-held", holds.size > 0);
+    // Screen readers hear the new quote only when it changed because of them
+    list.setAttribute("aria-live", isRunning() ? "off" : "polite");
+    pauseBtn.setAttribute("aria-label", userPaused ? "Play testimonials" : "Pause testimonials");
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    if (!isRunning()) return;
+    startedAt = Date.now();
+    timer = setTimeout(() => goTo(current + 1), remaining);
+  }
+
+  function stopClock() {
+    if (isRunning()) remaining -= Date.now() - startedAt;
+    clearTimeout(timer);
+  }
+
+  function goTo(index) {
+    const next = (index + testimonialSlides.length) % testimonialSlides.length;
+    if (next === current) return;
+    current = next;
+    testimonialSlides.forEach((slide, i) => {
+      const active = i === current;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+    });
+    dots.forEach((dot, i) => dot.setAttribute("aria-current", String(i === current)));
+    remaining = INTERVAL;
+    schedule();
+  }
+
+  function hold(reason) {
+    if (holds.has(reason)) return;
+    stopClock();
+    holds.add(reason);
+    syncState();
+  }
+
+  function release(reason) {
+    if (!holds.delete(reason)) return;
+    syncState();
+    schedule();
+  }
+
+  testimonialSection.setAttribute("aria-roledescription", "carousel");
+  list.classList.add("is-slideshow");
+  controls.hidden = false;
+
+  testimonialSection.querySelector('[data-action="prev"]').addEventListener("click", () => goTo(current - 1));
+  testimonialSection.querySelector('[data-action="next"]').addEventListener("click", () => goTo(current + 1));
+  pauseBtn.addEventListener("click", () => {
+    if (userPaused) {
+      // Restart this quote's countdown from the top; re-adding .is-autoplaying
+      // in syncState restarts the dot's fill animation at the same moment.
+      userPaused = false;
+      remaining = INTERVAL;
+      syncState();
+      schedule();
+    } else {
+      stopClock();
+      userPaused = true;
+      syncState();
+    }
+  });
+
+  testimonialSection.addEventListener("pointerenter", (e) => {
+    if (e.pointerType === "mouse") hold("hover");
+  });
+  testimonialSection.addEventListener("pointerleave", (e) => {
+    if (e.pointerType === "mouse") release("hover");
+  });
+  testimonialSection.addEventListener("focusin", () => hold("focus"));
+  testimonialSection.addEventListener("focusout", (e) => {
+    if (!testimonialSection.contains(e.relatedTarget)) release("focus");
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) hold("hidden");
+    else release("hidden");
+  });
+
+  // Swipe left / right on phones
+  let swipeStart = null;
+  list.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse") swipeStart = { x: e.clientX, y: e.clientY };
+  });
+  list.addEventListener("pointerup", (e) => {
+    if (!swipeStart) return;
+    const dx = e.clientX - swipeStart.x;
+    const dy = e.clientY - swipeStart.y;
+    swipeStart = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) goTo(current + (dx < 0 ? 1 : -1));
+  });
+  list.addEventListener("pointercancel", () => {
+    swipeStart = null;
+  });
+
+  syncState();
+  goTo(0);
+}
+
+// ========================================
 // MOBILE / TABLET NAV MENU
 // ========================================
 const nav = document.querySelector(".nav");
