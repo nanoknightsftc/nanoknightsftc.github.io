@@ -143,6 +143,32 @@ loadImage('itd-img-3', './media/intothedeep3.jpeg');
 loadImage('itd-img-4', './media/intothedeep2.jpeg');
 
 // ========================================
+// OUTREACH - one tab per event
+// ========================================
+loadImage('outreach-fbcl-img-1', './media/outreach/fbcl-1.jpg');
+loadImage('outreach-fbcl-img-2', './media/outreach/fbcl-2.jpg');
+loadImage('outreach-fbcl-img-3', './media/outreach/fbcl-3.jpg');
+loadImage('outreach-fbcl-img-4', './media/outreach/fbcl-4.jpg');
+loadImage('outreach-roboraiders-img-1', './media/outreach/roboraiders-1.jpg');
+loadImage('outreach-roboraiders-img-2', './media/outreach/roboraiders-2.jpg');
+loadImage('outreach-roboraiders-img-3', './media/outreach/roboraiders-3.jpg');
+loadImage('outreach-roboraiders-img-4', './media/outreach/roboraiders-4.jpg');
+
+function showOutreachTab(eventId) {
+  document.querySelectorAll(".outreach-tab").forEach((tab) => {
+    const selected = tab.id === "outreach-tab-" + eventId;
+    tab.classList.toggle("active", selected);
+    tab.setAttribute("aria-selected", selected);
+    tab.tabIndex = selected ? 0 : -1;
+  });
+  document.querySelectorAll(".outreach-panel").forEach((panel) => {
+    const selected = panel.id === "outreach-" + eventId;
+    panel.classList.toggle("active", selected);
+    panel.hidden = !selected;
+  });
+}
+
+// ========================================
 // SPONSOR CONTACT FORM
 // ========================================
 function scrollToSponsorForm() {
