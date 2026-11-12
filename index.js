@@ -87,6 +87,8 @@ loadImage('home-sponsor-1', './media/baqir-logo.png');
 loadImage('sponsor-logo-1', './media/baqir-logo.png');
 loadImage('home-sponsor-2', './media/metegrity-logo.png');
 loadImage('sponsor-logo-2', './media/metegrity-logo.png');
+loadImage('home-sponsor-3', './media/fabwork.jpg');
+loadImage('sponsor-logo-3', './media/fabwork.jpg');
 
 // ========================================
 // EXISTING IMAGES - Already loaded
@@ -113,6 +115,7 @@ loadImage('competition-img-1', './media/intothedeep2.jpeg');
 loadImage('competition-img-2', './media/working.jpeg');
 loadImage('daye-img', './media/daye.jpeg');
 loadImage('metegrity-img', './media/metegrity-industries.jpg');
+loadImage('fabworks-img', './media/fabwork.jpg');
 
 // ========================================
 // GALLERY - BIOBUZZ SEASON (2026-2027)
