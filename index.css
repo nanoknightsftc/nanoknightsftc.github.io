@@ -90,6 +90,7 @@ h1, h2, h3, h4 {
 }
 
 .logo {
+  text-decoration: none;
   font-family: "JetBrains Mono", monospace;
   font-size: 1.8rem;
   font-weight: 700;
@@ -346,6 +347,10 @@ h1, h2, h3, h4 {
   margin: 2rem 0 1rem 0;
 }
 
+.sponsor-card a {
+  color: var(--color-accent);
+}
+
 .sponsor-card ul {
   color: var(--color-text);
   line-height: 2;
@@ -437,7 +442,7 @@ h1, h2, h3, h4 {
 }
 
 .sponsor-logo-slot {
-  width: 12.5rem;
+  width: min(12.5rem, calc((100% - 2.5rem) / 3));
   height: 7.5rem;
   background: #ffffff;
   border-radius: 10px;
@@ -457,6 +462,22 @@ h1, h2, h3, h4 {
 }
 .sponsor-logo-slot.has-image img {
   display: block;
+}
+
+.sponsor-logo-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.sponsor-logo-link:hover,
+.sponsor-logo-link:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -2px;
 }
 
 .sponsor-logo-slot .slot-label {
@@ -609,6 +630,15 @@ footer p {
 
 .image-placeholder.has-image img {
   display: block;
+}
+
+/* Wide logos on a white card: show the whole logo instead of cropping it */
+.image-placeholder.logo-frame {
+  background: #ffffff;
+}
+.image-placeholder.logo-frame img {
+  object-fit: contain;
+  padding: clamp(0.75rem, 3vw, 1.5rem);
 }
 
 .image-placeholder-text {
