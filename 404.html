@@ -5,18 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Page not found | Nano Knights</title>
     <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="/index.css?v=11">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/index.css?v=12">
+    <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
+    <a class="skip-link" href="#not-found">Skip to content</a>
     <nav class="nav" aria-label="Main">
         <a class="logo" href="/">NANO KNIGHTS</a>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a data-page="home" href="/">Home</a></li>
+            <li><a data-page="about-ftc" href="/about-ftc/">About FTC</a></li>
+            <li><a data-page="about-us" href="/about-us/">About Us</a></li>
+            <li><a data-page="mission" href="/mission/">Our Mission</a></li>
+            <li><a data-page="robot" href="/robot/">Robot</a></li>
+            <li><a data-page="achievements" href="/achievements/">Achievements</a></li>
+            <li><a data-page="gallery" href="/gallery/">Gallery</a></li>
+            <li><a data-page="outreach" href="/outreach/">Outreach</a></li>
+            <li><a data-page="sponsors" href="/sponsors/">Sponsors</a></li>
+        </ul>
     </nav>
-    <main class="page active">
-        <div class="page-header">
-            <div class="page-eyebrow">// 404</div>
-            <h2>Page not found</h2>
-            <p>We couldn't find that page. <a href="/" style="color: var(--color-accent);">Head back to the home page</a>.</p>
+
+<main id="not-found" class="page active">
+    <div class="page-header">
+        <div class="page-eyebrow">// 404</div>
+        <h1 class="section-title">Page not found</h1>
+    </div>
+
+    <div class="content-section not-found">
+        <p>We couldn't find that page. It may have moved, or the link may be mistyped.</p>
+        <div class="cta-row">
+            <a class="cta-btn cta-primary" href="/">Back to Home</a>
+            <a class="cta-btn cta-secondary" href="/sponsors/">Sponsors</a>
         </div>
-    </main>
+    </div>
+</main>
+
+<footer>
+    <p>Nano Knights FTC Team 26147</p>
+    <p>Inspiring Innovation Through Robotics</p>
+    <p>Gracious Professionalism | Cooperation | STEM Excellence</p>
+    <p class="contact-info">Contact: <a href="mailto:contact@nanoknightsftc.com">contact@nanoknightsftc.com</a></p>
+    <p>
+        <a class="footer-social" href="https://www.instagram.com/nanoknightsftc" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @nanoknightsftc
+        </a>
+    </p>
+    <p>&copy; 2026 Nano Knights</p>
+</footer>
+
+<script src="/index.js?v=12"></script>
 </body>
 </html>

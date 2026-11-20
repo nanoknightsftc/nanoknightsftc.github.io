@@ -1,165 +1,89 @@
-// Images start loading only when their box gets near the screen. We watch the
-// box, not the <img>: the <img> is display:none until it loads, and the
-// browser's own loading="lazy" never fires for a hidden image.
-const lazyImageObserver = "IntersectionObserver" in window
-  ? new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        observer.unobserve(entry.target);
-        entry.target.querySelector("img").src = entry.target.dataset.imageUrl;
-      });
-    }, { rootMargin: "600px 0px" })
-  : null;
-
-// Image loading helper function
-function loadImage(elementId, imageUrl) {
-  const element = document.getElementById(elementId);
-  if (element) {
-    const img = element.querySelector("img");
-    if (img) {
-      img.decoding = "async";
-      img.onload = () => {
-        element.classList.add("has-image");
-      };
-      if (lazyImageObserver) {
-        element.dataset.imageUrl = imageUrl;
-        lazyImageObserver.observe(element);
-      } else {
-        img.src = imageUrl;
-      }
-    }
-  }
-}
-
-// Video loading helper function
-function loadVideo(elementId, videoUrl) {
-  const element = document.getElementById(elementId);
-  if (element) {
-    const video = element.querySelector("video");
-    if (video) {
-      video.preload = "metadata"; // only fetch the first frame until someone presses play
-      video.src = videoUrl;
-      video.onload = () => {
-        element.classList.add("has-image");
-      };
-    }
-  }
-}
-
-// Image link loading helper function
-function loadImageLink(elementId, imageUrl) {
-  const element = document.getElementById(elementId);
-  if (element) {
-    const a = element.querySelector("a");
-    if (a) {
-      a.href = imageUrl;
-    }
-  }
-}
-
-// ========================================
-// HOME - Hero photo grid
-// ========================================
-loadImage('home-photo-1', '/media/teamphoto.jpeg');
-loadImage('home-photo-2', '/media/working.jpeg');
-loadImage('home-photo-3', '/media/decode.jpeg');
-loadImage('home-photo-4', '/media/senator.jpeg');
-loadImage('home-sponsor-1', '/media/baqir-logo.png');
-loadImage('sponsor-logo-1', '/media/baqir-logo.png');
-loadImage('home-sponsor-2', '/media/metegrity-logo.png');
-loadImage('sponsor-logo-2', '/media/metegrity-logo.png');
-loadImage('home-sponsor-3', '/media/fabwork.jpg');
-loadImage('sponsor-logo-3', '/media/fabwork.jpg');
-
-// ========================================
-// EXISTING IMAGES - Already loaded
-// ========================================
-loadImage('home-robot-img', '/media/teamphoto.jpeg');
-loadImage('ftc-img', "/media/ftclogo.jpeg")
-loadImageLink("robot-img-2", "/media/Team image 1.jpeg");
-loadImage("robot-img-1", "/media/bottomplate.jpeg");
-loadImageLink("robot-img-1", "/media/bottomplate.jpeg");
-loadImage("robot-img-2", "/media/drivetrain.jpeg");
-loadImageLink("robot-img-2", "/media/drivetrain.jpeg");
-loadImage('robot-img-3', '/media/shooter.jpeg');
-loadImageLink("robot-img-3", "/media/shooter.jpeg");
-loadImage('robot-img-4', '/media/Intake.jpeg');
-loadImageLink("robot-img-2", "/media/Intake.jpeg");
-loadImage('robot-img-5', '/media/bottom.jpeg');
-loadImage('robot-img-6', '/media/topdown.jpeg');
-loadVideo('robot-video-1', '/media/spindex.mp4');
-loadVideo('robot-video-2', '/media/Auton.mp4');
-loadVideo('robot-video-3', '/media/shootertesting.mp4');
-loadVideo('biobuzz-robot-video-1', '/media/shooter-prototype.mp4');
-loadImage('team-photo-img', '/media/working.jpeg');
-loadImage('competition-img-1', '/media/intothedeep2.jpeg');
-loadImage('competition-img-2', '/media/working.jpeg');
-loadImage('daye-img', '/media/daye.jpeg');
-loadImage('metegrity-img', '/media/metegrity-industries.jpg');
-loadImage('fabworks-img', '/media/fabwork.jpg');
-
-// ========================================
-// GALLERY - BIOBUZZ SEASON (2026-2027)
-// ========================================
-loadImage('biobuzz-img-1', '/media/biobuzz.jpeg');
-loadVideo('biobuzz-video-1', '/media/shooter-prototype.mp4');
-
-// ========================================
-// GALLERY - DECODE SEASON (2025-2026)
-// ========================================
-loadImage('decode-img-1', '/media/decode.jpeg');
-loadImage('decode-img-2', '/media/working.jpeg');
-loadImage('decode-img-3', '/media/team2.jpeg');
-loadImage('decode-img-4', '/media/field.jpeg');
-loadImage('decode-img-5', '/media/teams.jpeg');
-loadImage('decode-img-6', '/media/shooter.jpeg');
-loadImage('decode-img-7', '/media/senator.jpeg');
-loadImage('decode-img-8', '/media/bottomplate.jpeg');
-loadImage('decode-img-9', '/media/drivetrain.jpeg');
-loadImage('decode-img-10', '/media/Intake.jpeg');
-
-// ========================================
-// GALLERY - INTO THE DEEP SEASON (2024-2025)
-// ========================================
-loadImage('itd-img-1', '/media/intothedeep.jpeg');
-loadImage('itd-img-2', '/media/idp4.jpeg');
-loadImage('itd-img-3', '/media/intothedeep3.jpeg');
-loadImage('itd-img-4', '/media/intothedeep2.jpeg');
+// Photos and videos are plain <img> / <video> tags in each page's HTML.
+// To add one, copy an existing block in the page and change its src, alt,
+// width and height. Nothing in this file needs to change.
 
 // ========================================
 // OUTREACH - one tab per event
+// Click a tab, or use the arrow / Home / End keys while a tab has focus.
 // ========================================
-loadImage('outreach-fbcl-img-1', '/media/outreach/fbcl-1.jpg');
-loadImage('outreach-fbcl-img-2', '/media/outreach/fbcl-2.jpg');
-loadImage('outreach-fbcl-img-3', '/media/outreach/fbcl-3.jpg');
-loadImage('outreach-fbcl-img-4', '/media/outreach/fbcl-4.jpg');
-loadImage('outreach-roboraiders-img-1', '/media/outreach/roboraiders-1.jpg');
-loadImage('outreach-roboraiders-img-2', '/media/outreach/roboraiders-2.jpg');
-loadImage('outreach-roboraiders-img-3', '/media/outreach/roboraiders-3.jpg');
-loadImage('outreach-roboraiders-img-4', '/media/outreach/roboraiders-4.jpg');
+const outreachTabs = Array.from(document.querySelectorAll(".outreach-tab"));
 
-function showOutreachTab(eventId) {
-  document.querySelectorAll(".outreach-tab").forEach((tab) => {
-    const selected = tab.id === "outreach-tab-" + eventId;
+function showOutreachTab(selectedTab) {
+  outreachTabs.forEach((tab) => {
+    const selected = tab === selectedTab;
     tab.classList.toggle("active", selected);
     tab.setAttribute("aria-selected", selected);
     tab.tabIndex = selected ? 0 : -1;
-  });
-  document.querySelectorAll(".outreach-panel").forEach((panel) => {
-    const selected = panel.id === "outreach-" + eventId;
+    const panel = document.getElementById(tab.getAttribute("aria-controls"));
     panel.classList.toggle("active", selected);
     panel.hidden = !selected;
   });
 }
 
+if (outreachTabs.length) {
+  outreachTabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => showOutreachTab(tab));
+    tab.addEventListener("keydown", (e) => {
+      const last = outreachTabs.length - 1;
+      const next = {
+        ArrowRight: i === last ? 0 : i + 1,
+        ArrowLeft: i === 0 ? last : i - 1,
+        Home: 0,
+        End: last,
+      }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      showOutreachTab(outreachTabs[next]);
+      outreachTabs[next].focus();
+    });
+  });
+  showOutreachTab(outreachTabs.find((tab) => tab.classList.contains("active")) || outreachTabs[0]);
+}
+
+// ========================================
+// PHOTO VIEWER
+// Clicking a photo wrapped in <a class="image-link"> opens it large on top
+// of the page. Escape, the close button, or a click outside the photo closes it.
+// ========================================
+const imageLinks = document.querySelectorAll(".image-link");
+
+if (imageLinks.length && typeof HTMLDialogElement === "function") {
+  const viewer = document.createElement("dialog");
+  viewer.className = "photo-viewer";
+  viewer.setAttribute("aria-label", "Photo viewer");
+  viewer.innerHTML = `
+    <button type="button" class="photo-viewer-close" aria-label="Close photo">
+      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3 3 13"/></svg>
+    </button>
+    <img alt="">
+    <p class="photo-viewer-caption"></p>`;
+  document.body.appendChild(viewer);
+
+  const viewerImg = viewer.querySelector("img");
+  const viewerCaption = viewer.querySelector(".photo-viewer-caption");
+
+  imageLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      // Ctrl / Cmd / Shift click still opens the file in a new tab or window
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      const caption = link.closest(".image-grid-item").nextElementSibling;
+      viewerImg.src = link.href;
+      viewerImg.alt = link.querySelector("img").alt;
+      viewerCaption.textContent = caption ? caption.textContent : "";
+      viewer.showModal();
+    });
+  });
+
+  viewer.addEventListener("click", (e) => {
+    if (e.target !== viewerImg) viewer.close();
+  });
+  viewer.addEventListener("close", () => viewerImg.removeAttribute("src"));
+}
+
 // ========================================
 // SPONSOR CONTACT FORM
 // ========================================
-function scrollToSponsorForm() {
-  const form = document.getElementById('sponsor-form');
-  if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
 const sponsorForm = document.getElementById('sponsor-contact-form');
 if (sponsorForm) {
   sponsorForm.addEventListener('submit', async (e) => {
@@ -386,14 +310,3 @@ window.addEventListener("scroll", () => {
     nav.classList.toggle("scrolled", scrolled);
   }
 }, { passive: true });
-
-// ========================================
-// ACTIVE NAV LINK ON LOAD
-// ========================================
-const initialActivePage = document.querySelector(".page.active");
-if (initialActivePage) {
-  const initialLink = document.querySelector(
-    `.nav-links a[data-page="${initialActivePage.id}"]`
-  );
-  if (initialLink) initialLink.classList.add("active");
-}

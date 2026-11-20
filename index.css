@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
-
 /* ========================================================
    COLOR PALETTE - "Crimson & Gold"
    Change any value below to re-theme the whole site.
@@ -24,8 +22,11 @@
   --color-accent: #8f1d24;
   --color-accent-hover: #6f151b;
   --color-accent-soft: rgba(143, 29, 36, 0.08);
-  --color-gold: #a97c2f;
+  --color-gold: #a97c2f;         /* borders and decoration only: too light for small text */
+  --color-gold-text: #7d5a1c;    /* gold that stays readable as text on the ivory backgrounds */
   --color-gold-light: #d9b568;
+  --color-field-border: #8a7468; /* form field outline, visible against the white card */
+  --color-media-bg: #2b1512;     /* backdrop behind videos and the photo viewer */
 
   --color-status-good: #2f7a4f;
 
@@ -63,6 +64,35 @@ body {
 
 h1, h2, h3, h4 {
   font-family: "JetBrains Mono", monospace;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Keyboard users can jump past the nav; hidden until it receives focus */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
 }
 
 .nav {
@@ -223,7 +253,7 @@ h1, h2, h3, h4 {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: 0.85rem;
 }
 
@@ -245,7 +275,7 @@ h1, h2, h3, h4 {
   padding: clamp(1.25rem, 0.5rem + 3.6vw, 3rem);
 }
 
-.content-section h3 {
+.content-section h2 {
   font-size: clamp(1.35rem, 1rem + 1.6vw, 2rem);
   color: var(--color-accent);
   margin-bottom: 1.5rem;
@@ -266,7 +296,7 @@ h1, h2, h3, h4 {
   padding: clamp(1rem, 0.5rem + 2vw, 1.75rem);
 }
 
-.approach-item h4 {
+.approach-item h2 {
   font-size: 0.95rem;
   color: var(--color-accent);
   letter-spacing: 0.02em;
@@ -310,11 +340,11 @@ h1, h2, h3, h4 {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-text);
   margin-bottom: 0.6rem;
 }
 
-.team-member h4 {
+.team-member h3 {
   font-size: clamp(1.3rem, 1rem + 1.3vw, 1.8rem);
   color: var(--color-accent);
   margin-bottom: 1rem;
@@ -335,13 +365,13 @@ h1, h2, h3, h4 {
   margin: 0 auto 2rem;
 }
 
-.sponsor-card h3 {
+.sponsor-card h2 {
   font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.5rem);
   color: var(--color-accent);
   margin-bottom: 1.5rem;
 }
 
-.sponsor-card h4 {
+.sponsor-card h3 {
   font-size: clamp(1.15rem, 1rem + 0.8vw, 1.5rem);
   color: var(--color-text);
   margin: 2rem 0 1rem 0;
@@ -373,7 +403,7 @@ h1, h2, h3, h4 {
   box-shadow: 0 14px 32px rgba(143, 29, 36, 0.2);
 }
 
-.sponsor-cta-copy h3 {
+.sponsor-cta-copy h2 {
   font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem);
   color: var(--color-text-on-accent);
   margin-bottom: 0.4rem;
@@ -429,6 +459,9 @@ h1, h2, h3, h4 {
   color: var(--color-accent);
   cursor: pointer;
   text-decoration: none;
+  display: inline-block;
+  padding: 0.9rem 0; /* taller tap area without changing the text size */
+  margin: -0.9rem 0;
 }
 .sponsor-strip-link:hover {
   text-decoration: underline;
@@ -455,13 +488,12 @@ h1, h2, h3, h4 {
 }
 
 .sponsor-logo-slot img {
+  display: block;
+  width: auto;
+  height: auto;
   max-width: 92%;
   max-height: 92%;
   object-fit: contain;
-  display: none;
-}
-.sponsor-logo-slot.has-image img {
-  display: block;
 }
 
 .sponsor-logo-link {
@@ -489,13 +521,10 @@ h1, h2, h3, h4 {
   text-align: center;
   padding: 0.5rem;
 }
-.sponsor-logo-slot.has-image .slot-label {
-  display: none;
-}
 
 .robot-specs {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(15.625rem, 100%), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
   max-width: var(--content-max);
   margin: 2rem auto;
@@ -576,7 +605,7 @@ h1, h2, h3, h4 {
   border-left: 3px solid var(--color-accent);
 }
 
-.timeline-content h4 {
+.timeline-content h2 {
   color: var(--color-text);
   margin-bottom: 0.5rem;
   font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
@@ -598,6 +627,24 @@ footer {
 footer p {
   color: var(--color-text-muted);
   margin: 0.5rem 0;
+}
+
+footer a {
+  color: var(--color-accent);
+  display: inline-block;
+  padding: 0.7rem 0; /* taller tap area */
+  margin: -0.7rem 0;
+}
+
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+.footer-social:hover {
+  text-decoration: underline;
 }
 
 .contact-info {
@@ -622,14 +669,10 @@ footer p {
 }
 
 .image-placeholder img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: none;
-}
-
-.image-placeholder.has-image img {
-  display: block;
 }
 
 /* Wide logos on a white card: show the whole logo instead of cropping it */
@@ -639,17 +682,6 @@ footer p {
 .image-placeholder.logo-frame img {
   object-fit: contain;
   padding: clamp(0.75rem, 3vw, 1.5rem);
-}
-
-.image-placeholder-text {
-  color: var(--color-text-muted);
-  font-size: 1.1rem;
-  text-align: center;
-  padding: 2rem;
-}
-
-.image-placeholder.has-image .image-placeholder-text {
-  display: none;
 }
 
 /* FTC logo: show the whole image inside the frame instead of cropping it */
@@ -679,22 +711,27 @@ footer p {
 }
 
 .image-grid-item img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: none;
 }
 
-.image-grid-item.has-image img {
+/* Photos that open larger: the whole tile is the link (see the photo viewer in index.js) */
+.image-link {
   display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
 }
-
-.image-grid-item .image-placeholder-text {
-  font-size: 0.9rem;
+.image-link:focus-visible {
+  outline-offset: -3px;
 }
-
-.image-grid-item.has-image .image-placeholder-text {
-  display: none;
+.image-link img {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.image-link:hover img {
+  transform: scale(1.03);
 }
 
 .image-caption {
@@ -735,11 +772,121 @@ footer p {
   padding: 2rem;
 }
 
+/* Videos show the whole frame (most clips are portrait) on a dark backdrop */
 .image-grid-item video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  background: var(--color-media-bg);
+}
+
+/* Robot page: copy on the left, one tall video on the right */
+.media-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.media-split-media .image-grid-item {
+  height: auto;
+  aspect-ratio: 576 / 784;
+}
+
+/* 404 page */
+.not-found {
+  max-width: 40rem;
+  text-align: center;
+}
+.not-found .cta-row {
+  margin-top: 1.5rem;
+}
+
+/* ========================================================
+   PHOTO VIEWER
+   Opens when a gallery photo is clicked (index.js). Without JS the
+   link just opens the image file.
+   ======================================================== */
+.photo-viewer {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: clamp(3.5rem, 6vw, 4.5rem) clamp(0.75rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem);
+  border: 0;
+  background: transparent;
+  color: var(--color-text-on-accent);
+}
+.photo-viewer[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.photo-viewer::backdrop {
+  background: rgba(43, 21, 18, 0.92);
+}
+
+.photo-viewer img {
+  display: block;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.photo-viewer-caption {
+  flex-shrink: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+.photo-viewer-close {
+  position: absolute;
+  top: clamp(0.5rem, 2vw, 1rem);
+  right: clamp(0.5rem, 2vw, 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgba(251, 246, 239, 0.5);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.photo-viewer-close:hover {
+  background: rgba(251, 246, 239, 0.14);
+}
+.photo-viewer-close:focus-visible {
+  outline-color: var(--color-gold-light);
+}
+.photo-viewer-close svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-link img {
+    transition: none;
+  }
+  .image-link:hover img {
+    transform: none;
+  }
 }
 
 .video-caption {
@@ -785,7 +932,7 @@ footer p {
   color: var(--color-accent);
 }
 
-.tier-header h4 {
+.tier-header h3 {
   font-size: 1.1rem;
   margin: 0.25rem 0 0;
   color: var(--color-text);
@@ -854,11 +1001,6 @@ footer p {
   height: 8.125rem;
   border-radius: 10px;
   background: var(--color-surface-alt);
-}
-
-.hero-photo .image-placeholder-text {
-  font-size: 0.62rem;
-  padding: 0.5rem;
 }
 
 /* Eyebrow / status readout */
@@ -931,6 +1073,11 @@ footer p {
 }
 .outreach-tab:hover {
   background: var(--color-accent-soft);
+}
+
+/* Without JS the tabs can't switch, so they're hidden and both events show in full */
+html:not(.js) .outreach-tabs {
+  display: none;
 }
 .outreach-tab.active {
   background: linear-gradient(120deg, var(--color-accent), var(--color-accent-hover));
@@ -1384,7 +1531,7 @@ footer p {
   font-size: 1rem; /* 16px+ keeps iOS Safari from zooming the page on focus */
   color: var(--color-text);
   background: var(--color-surface-alt);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-field-border);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   width: 100%;
@@ -1394,8 +1541,9 @@ footer p {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  outline: none;
-  border-color: var(--color-gold);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-color: var(--color-accent);
 }
 
 .form-group textarea {
@@ -1493,10 +1641,36 @@ footer p {
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border-gold);
     box-shadow: 0 18px 28px rgba(43, 21, 18, 0.12);
+  }
+
+  /* The menu only collapses when JavaScript is running (<html class="js">) to
+     open it again. Without JS the bar stops being fixed and lists every link. */
+  .js .nav-links {
     max-height: 0;
     overflow: hidden;
     visibility: hidden; /* closed links are skipped by keyboard and screen readers */
     transition: max-height 0.25s ease, visibility 0s linear 0.25s;
+  }
+
+  html:not(.js) .nav {
+    position: static;
+    height: auto;
+    min-height: var(--nav-h);
+    flex-wrap: wrap;
+  }
+  html:not(.js) .nav-toggle {
+    display: none;
+  }
+  html:not(.js) .nav-links {
+    position: static;
+    flex-basis: 100%;
+    box-shadow: none;
+    border-bottom: 0;
+    border-top: 1px solid var(--color-border);
+  }
+  html:not(.js) .page,
+  html:not(.js) #home.page {
+    padding-top: 1.75rem;
   }
 
   .nav.open .nav-links {
@@ -1555,6 +1729,19 @@ footer p {
     grid-template-columns: 1fr;
   }
 
+  .robot-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .media-split {
+    grid-template-columns: 1fr;
+  }
+
+  .media-split-media {
+    width: min(100%, 20rem);
+    margin: 0 auto;
+  }
+
   .hero-split .hero-main {
     grid-template-columns: 1fr;
   }
@@ -1594,7 +1781,7 @@ footer p {
     text-align: left;
   }
 
-  .content-section h3 {
+  .content-section h2 {
     margin-bottom: 1rem;
   }
 
@@ -1694,6 +1881,10 @@ footer p {
   .cta-row .cta-btn {
     flex: 1 1 100%;
     text-align: center;
+  }
+
+  .robot-specs {
+    grid-template-columns: 1fr;
   }
 
   .spec-panel {

@@ -6,9 +6,14 @@
     <title>Robot | Nano Knights</title>
     <meta name="description" content="Hardware and software behind the Nano Knights FTC robots, season by season.">
     <link rel="canonical" href="https://nanoknightsftc.com/robot/">
-    <link rel="stylesheet" href="/index.css?v=11">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="/index.css?v=12">
+    <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
+    <a class="skip-link" href="#robot">Skip to content</a>
     <nav class="nav" aria-label="Main">
         <a class="logo" href="/">NANO KNIGHTS</a>
         <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
@@ -19,7 +24,7 @@
             <li><a data-page="about-ftc" href="/about-ftc/">About FTC</a></li>
             <li><a data-page="about-us" href="/about-us/">About Us</a></li>
             <li><a data-page="mission" href="/mission/">Our Mission</a></li>
-            <li><a data-page="robot" href="/robot/">Robot</a></li>
+            <li><a data-page="robot" class="active" aria-current="page" href="/robot/">Robot</a></li>
             <li><a data-page="achievements" href="/achievements/">Achievements</a></li>
             <li><a data-page="gallery" href="/gallery/">Gallery</a></li>
             <li><a data-page="outreach" href="/outreach/">Outreach</a></li>
@@ -30,39 +35,40 @@
 <main id="robot" class="page active">
     <div class="page-header">
         <div class="page-eyebrow">// Hardware &amp; Software</div>
-        <h2 class="section-title">Robot Design</h2>
+        <h1 class="section-title">Robot Design</h1>
     </div>
     
     <div class="content-section approach-strip">
         <div class="approach-item">
-            <h4>Design Philosophy</h4>
+            <h2>Design Philosophy</h2>
             <p>Simple, reliable mechanisms, planned in CAD so every part works together.</p>
         </div>
         <div class="approach-item">
-            <h4>Programming Strategy</h4>
+            <h2>Programming Strategy</h2>
             <p>Vision- and sensor-driven autonomous, plus driver controls tuned with our operators.</p>
         </div>
         <div class="approach-item">
-            <h4>Continuous Improvement</h4>
+            <h2>Continuous Improvement</h2>
             <p>We log robot performance all season and make data-driven changes.</p>
         </div>
     </div>
 
-    <div class="content-section">
-        <h3>BIOBUZZ Season 2026-2027</h3>
-        <p>Our third season is underway. BIOBUZZ, presented by RTX, is a biodiversity-themed challenge built around a new scoring element called Pollen, and we're designing this robot from a blank sheet of paper.</p>
-        <div class="image-grid">
-            <div>
-                <div class="image-grid-item" id="biobuzz-robot-video-1">
-                    <video src="" controls controlsList="nofullscreen nodownload" muted playsinline></video>
-                </div>
-                <div class="video-caption">Shooter Prototype</div>
-            </div>
+    <div class="content-section media-split">
+        <div class="media-split-copy">
+            <h2>BIOBUZZ Season 2026-2027</h2>
+            <p>Our third season is underway. BIOBUZZ, presented by RTX, is a biodiversity-themed challenge built around a new scoring element called Pollen, and we're designing this robot from a blank sheet of paper.</p>
+            <p>First up is the shooter. The clip shows our current prototype in testing.</p>
         </div>
+        <figure class="media-split-media">
+            <div class="image-grid-item" id="biobuzz-robot-video-1">
+                <video src="/media/shooter-prototype.mp4" poster="/media/posters/shooter-prototype.jpg" aria-label="Shooter prototype video" controls controlsList="nodownload" preload="none" playsinline></video>
+            </div>
+            <figcaption class="video-caption">Shooter Prototype</figcaption>
+        </figure>
     </div>
 
     <div class="content-section">
-        <h3>DECODE Season 2025-2026</h3>
+        <h2>DECODE Season 2025-2026</h2>
         <p>Our robot for the DECODE season represents the culmination of everything we've learned over our two years in FTC. Building on the experience from Into The Deep, we've designed a robot that combines reliability, precision, and innovative problem-solving.</p>
         
         <p>The design process involved extensive planning, CAD modeling, prototyping, and testing. Each subsystem was carefully considered to ensure optimal performance and compatibility with our overall strategy.</p>
@@ -96,75 +102,59 @@
     </div>
 
     <div class="content-section">
-        <h3>Robot Gallery (DECODE Season)</h3>
+        <h2>Robot Gallery (DECODE Season)</h2>
         <div class="image-grid">
             <div>
                 <div class="image-grid-item" id="robot-img-1">
-                    <a href="" target="_blank"><img src="" alt="Electronics"></a>
+                    <a class="image-link" href="/media/bottomplate.jpeg"><img src="/media/bottomplate.jpeg" alt="Robot electronics: Control Hub and Expansion Hub behind a clear shield" width="1200" height="1272" loading="lazy" decoding="async"></a>
                 </div>
                 <div class="image-caption">Electronics</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-img-2">
-                    <a href="" target="_blank"><img src="" alt="Drivetrain"></a>
+                    <a class="image-link" href="/media/drivetrain.jpeg"><img src="/media/drivetrain.jpeg" alt="Robot electronics with the shield removed, showing the REV Control Hub and wiring" width="1200" height="1600" loading="lazy" decoding="async"></a>
                 </div>
                 <div class="image-caption">Electronics (No Shield)</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-img-3">
-                    <img src="" alt="Robot Detail 3">
-                    <div class="image-placeholder-text">
-                        Robot Detail 3<br>
-                        <small>ID: robot-img-3</small>
-                    </div>
+                    <a class="image-link" href="/media/shooter.jpeg"><img src="/media/shooter.jpeg" alt="Shooter flywheel and hood" width="1000" height="1000" loading="lazy" decoding="async"></a>
                 </div>
                 <div class="image-caption">Shooter</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-img-4">
-                    <img src="" alt="Robot Detail 4">
-                    <div class="image-placeholder-text">
-                        Robot Detail 4<br>
-                        <small>ID: robot-img-4</small>
-                    </div>
+                    <a class="image-link" href="/media/Intake.jpeg"><img src="/media/Intake.jpeg" alt="Intake seen from the front of the robot" width="899" height="1599" loading="lazy" decoding="async"></a>
                 </div>
                 <div class="image-caption">Intake</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-img-5">
-                    <img src="" alt="Robot Detail 5">
-                    <div class="image-placeholder-text">
-                        Robot Detail 5<br>
-                        <small>ID: robot-img-5</small>
-                    </div>
+                    <a class="image-link" href="/media/bottom.jpeg"><img src="/media/bottom.jpeg" alt="Underside of the robot showing four mecanum wheels" width="1496" height="1496" loading="lazy" decoding="async"></a>
                 </div>
                 <div class="image-caption">Drivetrain</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-img-6">
-                    <img src="" alt="Robot Detail 6">
-                    <div class="image-placeholder-text">
-                        Robot Detail 6<br>
-                        <small>ID: robot-img-6</small>
-                    </div>
+                    <a class="image-link" href="/media/topdown.jpeg"><img src="/media/topdown.jpeg" alt="Top-down view of the spindexer holding a purple artifact" width="1496" height="1496" loading="lazy" decoding="async"></a>
                 </div>
                 <div class="image-caption">Top Down View</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-video-1">
-                    <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted playsinline></video>
+                    <video src="/media/spindex.mp4" poster="/media/posters/spindex.jpg" aria-label="Spindex development video" controls controlsList="nodownload" preload="none" playsinline></video>
                 </div>
                 <div class="video-caption">Spindex Development</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-video-2">
-                    <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted playsinline></video>
+                    <video src="/media/Auton.mp4" poster="/media/posters/Auton.jpg" aria-label="Mecanum drive development video" controls controlsList="nodownload" preload="none" playsinline></video>
                 </div>
                 <div class="video-caption">Mecanum Development</div>
             </div>
             <div>
                 <div class="image-grid-item" id="robot-video-3">
-                    <video src="" alt="Robot Detail 7" controls controlsList="nofullscreen nodownload" muted playsinline></video>
+                    <video src="/media/shootertesting.mp4" poster="/media/posters/shootertesting.jpg" aria-label="Shooter development video" controls controlsList="nodownload" preload="none" playsinline></video>
                 </div>
                 <div class="video-caption">Shooter Development</div>
             </div>
@@ -178,15 +168,15 @@
     <p>Inspiring Innovation Through Robotics</p>
     <p>Gracious Professionalism | Cooperation | STEM Excellence</p>
     <p class="contact-info">Contact: <a href="mailto:contact@nanoknightsftc.com">contact@nanoknightsftc.com</a></p>
-    <p style="margin-top: 1rem;">
-        <a href="https://www.instagram.com/nanoknightsftc?igsh=dmJodjd0ejNyNXM1" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent); text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 0.5rem;">
+    <p>
+        <a class="footer-social" href="https://www.instagram.com/nanoknightsftc" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             @nanoknightsftc
         </a>
     </p>
-    <p>Copyright (c) 2026 nanoknightsftc</p>
+    <p>&copy; 2026 Nano Knights</p>
 </footer>
 
-<script src="/index.js?v=11"></script>
+<script src="/index.js?v=12"></script>
 </body>
 </html>
